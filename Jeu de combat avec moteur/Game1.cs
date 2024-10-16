@@ -88,6 +88,7 @@ namespace Jeu_de_combat_avec_moteur
 
         SoundEffectInstance selection_song;
         SoundEffectInstance fight_song;
+        
 
         List<Texture2D> list_boutton_texture_selec;
         List<System.Numerics.Vector2> list_boutton_pos_selec;
@@ -189,6 +190,7 @@ namespace Jeu_de_combat_avec_moteur
             {
                 selection_song = Content.Load<SoundEffect>("select_song").CreateInstance();
                 fight_song = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
+
             }
             catch
             {
@@ -645,7 +647,14 @@ namespace Jeu_de_combat_avec_moteur
             else if (screen == "game")
             {
                 _spriteBatch.Begin();
-                _spriteBatch.Draw(bg_combat, new System.Numerics.Vector2(0,0), Color.White);
+                if (difficult == 10)
+                {
+                    _spriteBatch.Draw(bg_diff_10, new System.Numerics.Vector2(0, 0), Color.White);
+                }
+                else
+                {
+                    _spriteBatch.Draw(bg_combat, new System.Numerics.Vector2(0, 0), Color.White); 
+                }
                 _spriteBatch.End();
 
                 for (int i = 0; i < classJoueur.hprestants; i++)

@@ -13,12 +13,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin ../../../../../../../Users/victo/Downloads/select_song.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:../../../../../../../Users/victo/Downloads/select_song.wav;select_song.wav
-
 #begin attack.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -396,6 +390,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ranger gauche.png
+
+#begin select_song.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:select_song.wav
 
 #begin Slider barre.png
 /importer:TextureImporter
