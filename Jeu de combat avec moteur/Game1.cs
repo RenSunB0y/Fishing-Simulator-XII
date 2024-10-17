@@ -8,6 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+// 104100
+// 295500
+// 5E8549
+// D4D29B
+
 namespace Jeu_de_combat_avec_moteur
 {
 
@@ -106,7 +111,7 @@ namespace Jeu_de_combat_avec_moteur
         bool testpress = false;
 
 
-        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(250, 250);
+        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(148, 64);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250,250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100,100);
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
@@ -663,39 +668,21 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     System.Numerics.Vector2 positionProvi1 = sprite_joueur_pos;
 
-                    positionProvi1.X += (i * 90);
+                    positionProvi1.X += (i * 50) + 50;
                     positionProvi1.Y -= 70;
 
                     _spriteBatch.Begin();
                     _spriteBatch.Draw(healthTexture,positionProvi1, Color.White);
                     _spriteBatch.End();
                 }
-                for (int i = 0; i < classJoueur.att; i++)
-                {
-                    System.Numerics.Vector2 positionProvi2 = sprite_joueur_pos;
-                    positionProvi2.X += i * 40;
-                    positionProvi2.Y += 390;
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(attackTexture, positionProvi2, Color.White);
-                    _spriteBatch.End();
-                }
                 for (int i = 0; i < classIA.hprestants; i++)
                 {
                     System.Numerics.Vector2 positionProvi1 = sprite_IA_pos;
 
-                    positionProvi1.X += (i * 90);
+                    positionProvi1.X += (i * 50) + 50;
                     positionProvi1.Y -= 70;
                     _spriteBatch.Begin();
                     _spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
-                    _spriteBatch.End();
-                }
-                for (int i = 0; i < classIA.att; i++)
-                {
-                    System.Numerics.Vector2 positionProvi2 = sprite_IA_pos;
-                    positionProvi2.X += i * 40;
-                    positionProvi2.Y += 390;
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(attackTexture, positionProvi2, Color.White);
                     _spriteBatch.End();
                 }
 
