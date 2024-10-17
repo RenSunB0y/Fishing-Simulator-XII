@@ -169,12 +169,12 @@ namespace Jeu_de_combat_avec_moteur
             attackTexture = Content.Load<Texture2D>("attack");
             healthTexture = Content.Load<Texture2D>("Coeur full");
 
-            attack_boutton = Content.Load<Texture2D>("Boutton Atk");
-            defense_boutton = Content.Load<Texture2D>("Boutton Def");
-            spe_boutton_heal = Content.Load<Texture2D>("Btn Spell HEAL");
-            spe_boutton_dmg = Content.Load<Texture2D>("Btn Spell DMG");
-            spe_boutton_ranger = Content.Load<Texture2D>("Btn Spell RANGER");
-            spe_boutton_tank = Content.Load<Texture2D>("Btn Spell TANK");
+            attack_boutton = Content.Load<Texture2D>("Boutton Atk gb");
+            defense_boutton = Content.Load<Texture2D>("btn def gb");
+            spe_boutton_heal = Content.Load<Texture2D>("btn spell gb");
+            spe_boutton_dmg = Content.Load<Texture2D>("btn spell gb");
+            spe_boutton_ranger = Content.Load<Texture2D>("btn spell gb");
+            spe_boutton_tank = Content.Load<Texture2D>("btn spell gb");
 
             slider_barre = Content.Load<Texture2D>("Slider barre");
             slider_button = Content.Load<Texture2D>("Slider button");
