@@ -42,7 +42,7 @@ namespace Jeu_de_combat_avec_moteur
         public static string resolutionJoueur = "";
         public static string resolutionIA = "";
         public static string winner = "";
-        public static bool active_audio = true;
+        public static bool active_audio = false;
         public static bool control_slider = false;
 
 
@@ -69,6 +69,7 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D kirbyTexture;
         Texture2D attackTexture;
         Texture2D healthTexture;
+        Texture2D ui_fight;
 
         Texture2D attack_boutton;
         Texture2D defense_boutton;
@@ -107,7 +108,7 @@ namespace Jeu_de_combat_avec_moteur
 
         System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250,250);
-        System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(133,133);
+        System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100,100);
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
         System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(850,48);
 
@@ -116,15 +117,15 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 boutton2_pos = new System.Numerics.Vector2(290,150);
         System.Numerics.Vector2 boutton3_pos = new System.Numerics.Vector2(540,150);
         System.Numerics.Vector2 boutton4_pos = new System.Numerics.Vector2(790,150);
-        System.Numerics.Vector2 boutton_attack_pos = new System.Numerics.Vector2(220,550);
-        System.Numerics.Vector2 boutton_defense_pos = new System.Numerics.Vector2(470,550);
-        System.Numerics.Vector2 boutton_spe_pos = new System.Numerics.Vector2(720, 550);
+        System.Numerics.Vector2 boutton_attack_pos = new System.Numerics.Vector2(40,600);
+        System.Numerics.Vector2 boutton_defense_pos = new System.Numerics.Vector2(160,600);
+        System.Numerics.Vector2 boutton_spe_pos = new System.Numerics.Vector2(280, 600);
 
         System.Numerics.Vector2 slider_button_pos = new System.Numerics.Vector2(100, 515);
         System.Numerics.Vector2 slider_barre_pos = new System.Numerics.Vector2(100, 550);
 
-        System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50,150);
-        System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720,150);
+        System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50,170);
+        System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720,170);
 
         System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
 
@@ -168,6 +169,7 @@ namespace Jeu_de_combat_avec_moteur
             boutton_att = Content.Load<Texture2D>("boutton_select");
             attackTexture = Content.Load<Texture2D>("attack");
             healthTexture = Content.Load<Texture2D>("Coeur full");
+            ui_fight = Content.Load<Texture2D>("ui fight");
 
             attack_boutton = Content.Load<Texture2D>("Boutton Atk gb");
             defense_boutton = Content.Load<Texture2D>("btn def gb");
@@ -661,7 +663,7 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     System.Numerics.Vector2 positionProvi1 = sprite_joueur_pos;
 
-                    positionProvi1.X += (i * 40) + 60;
+                    positionProvi1.X += (i * 90);
                     positionProvi1.Y -= 70;
 
                     _spriteBatch.Begin();
@@ -681,7 +683,7 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     System.Numerics.Vector2 positionProvi1 = sprite_IA_pos;
 
-                    positionProvi1.X += (i * 40) + 60;
+                    positionProvi1.X += (i * 90);
                     positionProvi1.Y -= 70;
                     _spriteBatch.Begin();
                     _spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
@@ -700,6 +702,7 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(list_sprite[choixClasseJoueur], sprite_joueur_pos, Color.White);
                 _spriteBatch.Draw(list_sprite[choixClasseIA+4], sprite_IA_pos, Color.White);
+                _spriteBatch.Draw(ui_fight, new System.Numerics.Vector2(0, 580), Color.White);
                 _spriteBatch.Draw(list_boutton_combat_texture[0], list_boutton_combat_pos[0], Color.White);
                 _spriteBatch.Draw(list_boutton_combat_texture[1], list_boutton_combat_pos[1], Color.White);
                 _spriteBatch.Draw(list_boutton_combat_texture[2+choixClasseJoueur], list_boutton_combat_pos[2], Color.White);
