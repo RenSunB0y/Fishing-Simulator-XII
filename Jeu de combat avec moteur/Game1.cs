@@ -182,7 +182,7 @@ namespace Jeu_de_combat_avec_moteur
             bg_combat = Content.Load<Texture2D>("bg combat");
             bg_diff_10 = Content.Load<Texture2D>("bg diff 10");
             bg_ecrand_de_fin = Content.Load<Texture2D>("bg ecran de fin");
-            bg_selec_perso = Content.Load<Texture2D>("bg selec persos");
+            bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
             bg_start = Content.Load<Texture2D>("bg start");
 
             // Permet de vérifier qu'il y a bien un periférique audio branché
