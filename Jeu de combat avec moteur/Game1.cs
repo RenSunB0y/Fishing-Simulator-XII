@@ -127,7 +127,7 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 boutton_spe_pos = new System.Numerics.Vector2(280, 600);
 
         System.Numerics.Vector2 slider_button_pos = new System.Numerics.Vector2(100, 515);
-        System.Numerics.Vector2 slider_barre_pos = new System.Numerics.Vector2(100, 550);
+        System.Numerics.Vector2 slider_barre_pos = new System.Numerics.Vector2(100, 520);
 
         System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50,170);
         System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720,170);
