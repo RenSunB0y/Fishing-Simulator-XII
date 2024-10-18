@@ -31,8 +31,8 @@ namespace Jeu_de_combat_avec_moteur
         public static int choixClasseJoueur = 10;
         public static int choixIA = 0;
         public static int choixClasseIA = 10;
-        public static string nomClasseJoueur = "";
-        public static string nomClasseIA = "";
+        public static string nomClasseJoueur = " ";
+        public static string nomClasseIA = " ";
         public static int nManche = 0;
         public static bool combatTermine = false;
         public static bool joueurDef = false;
@@ -45,16 +45,16 @@ namespace Jeu_de_combat_avec_moteur
         public static bool iaRangerSpe = false;
         public static bool joueurDmgSpe = false;
         public static bool iaDmgSpe = false;
-        public static string resolutionJoueur = "";
-        public static string resolutionIA = "";
-        public static string winner = "";
+        public static string resolutionJoueur = " ";
+        public static string resolutionIA = " ";
+        public static string winner = "  ";
         public static bool active_audio = false;
         public static bool control_slider = false;
 
         public static int anim_frame = 0;
         public static string animation_en_cour = "non";
         public static int anim_time = 0;
-        public static string animation_sur = "";
+        public static string animation_sur = "  ";
 
 
         bool song_playing = false;
@@ -145,6 +145,9 @@ namespace Jeu_de_combat_avec_moteur
 
         System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
 
+        System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
+        System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
+
         System.Numerics.Vector2 animation_origine_pos;
         System.Numerics.Vector2 animation_pos;
 
@@ -212,6 +215,7 @@ namespace Jeu_de_combat_avec_moteur
             bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
             bg_start = Content.Load<Texture2D>("bg start");
 
+            font = Content.Load<SpriteFont>("Font");
             // Permet de verifier qu'il y a bien un periferique audio branche
             try
             {
@@ -356,7 +360,8 @@ namespace Jeu_de_combat_avec_moteur
                     if (tour == "joueur")
                     {
                         //Reset global des variables
-                        resolutionJoueur = "";
+                        resolutionJoueur = " ";
+                        resolutionIA = " ";
                         joueurDef = false; //reset de la parade 
                         classJoueur.hpPerdus = 0;
                         joueurDmgSpe = false;
@@ -452,12 +457,12 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= classJoueur.att;
                                             classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant, votre adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
+                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant,\nvotre adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
                                         }
                                         else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
                                             classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire ! Il a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
+                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
                                         }
                                     }
                                     else if (joueurRangerSpe)
@@ -466,12 +471,12 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= 5;
                                             classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere, votre adversaire prend votre fleche en pleine poirtine, il perd 5 points de vie";
+                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere,\nvotre adversaire prend votre fleche en pleine poirtine,il perd 5 points de vie";
                                         }
                                         else
                                         {
                                             classIA.hprestants -= 5;
-                                            resolutionJoueur = "Vous tirez votre fleche, votre adversaire tente de la dervier, sans succes, il perd 5 points de vie";
+                                            resolutionJoueur = "Vous tirez votre fleche, votre adversaire tente de la devier,\nsans succes, il perd 5 points de vie";
                                         }
                                     }
                                     break;
@@ -615,6 +620,7 @@ namespace Jeu_de_combat_avec_moteur
                                     animation_sur = "joueur";
                                 }
                                 else if (nomClasseIA == "Ranger")
+                                {
                                     if (iaRangerCharge >= 2)
                                     {
                                         iaRangerSpe = true;
@@ -629,26 +635,28 @@ namespace Jeu_de_combat_avec_moteur
                                         // Lance l'annimation
                                         animation_en_cour = "spe_ranger_1";
                                         animation_sur = "IA";
+                                        resolutionIA = "Votre adversaire prends le temps d'ajuster son tir...";
                                     }
+                                }
                                 else if (nomClasseIA == "Healer")
                                 {
                                     // Lance l'annimation
                                     animation_en_cour = "spe_healer";
                                     animation_sur = "IA";
                                 }
-                                resolutionIA = "Votre adversaire prends le temps d'ajuster son tir...";
+                                
                                 if (iaTankSpe)
                                 {
                                     if (!joueurDef) //on verifie si le joueur se defends
                                     {
                                         classJoueur.hprestants -= classIA.att;
                                         classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie, vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie,\nvous perdez " + classIA.att.ToString() + " point(s) de vie...";
                                     }
                                     else if (iaTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                     {
                                         classJoueur.hprestants -= classIA.att - 1;
-                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela, il traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela,\nil traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
                                     }
                                 }
                                 else if (iaRangerSpe)
@@ -662,7 +670,7 @@ namespace Jeu_de_combat_avec_moteur
                                     else
                                     {
                                         classJoueur.hprestants -= 5;
-                                        resolutionIA = "Vous tentez de parer la fleche tiree par votre adversaire, malheureusement elle est trop puissante et dechire votre armure, vous perdez 5 points de vie";
+                                        resolutionIA = "Vous tentez de parer la fleche tiree par votre adversaire, malheureusement,\nelle est trop puissante et dechire votre armure, vous perdez 5 points de vie";
                                     }
                                 }
                                 break;
@@ -747,6 +755,7 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     _spriteBatch.Draw(bg_combat, new System.Numerics.Vector2(0, 0), Color.White);
                 }
+
                 _spriteBatch.End();
 
                 for (int i = 0; i < classJoueur.hprestants; i++)
@@ -775,6 +784,10 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(list_sprite[choixClasseJoueur], sprite_joueur_pos, Color.White);
                 _spriteBatch.Draw(list_sprite[choixClasseIA + 4], sprite_IA_pos, Color.White);
                 _spriteBatch.Draw(ui_fight, new System.Numerics.Vector2(0, 580), Color.White);
+
+                _spriteBatch.DrawString(font, resolutionJoueur, textbox, Color.Black);
+                _spriteBatch.DrawString(font, resolutionIA, textbox2, Color.Black);
+
                 _spriteBatch.Draw(list_boutton_combat_texture[0], list_boutton_combat_pos[0], Color.White);
                 _spriteBatch.Draw(list_boutton_combat_texture[1], list_boutton_combat_pos[1], Color.White);
                 _spriteBatch.Draw(list_boutton_combat_texture[2 + choixClasseJoueur], list_boutton_combat_pos[2], Color.White);
@@ -992,7 +1005,7 @@ namespace Jeu_de_combat_avec_moteur
         public int hp;
         public int hpPerdus = 0;
         public int att = 1;
-        public string descSpell = "";
+        public string descSpell = " ";
         public virtual void speAtt()
         { }
 
