@@ -808,7 +808,7 @@ namespace Jeu_de_combat_avec_moteur
                         animation_origine_pos = sprite_joueur_pos;
                         animation_pos = animation_origine_pos;
                     }
-                    anim_frame = 100;
+                    anim_frame = 1000;
                 }
 
 
@@ -867,44 +867,45 @@ namespace Jeu_de_combat_avec_moteur
                 }
                 else if (animation_en_cour == "spe_tank")
                 {
-                    if (anim_frame == 100)
+                    if (anim_frame == 1000)
                     {
                         anim_frame = 0;
                         anim_time = 1;
                     }
-                    if (anim_frame > 50)
+                    if (anim_frame < 50)
                     {
-                        anim_frame -= 1;
+                        anim_frame += 1;
                         if (animation_sur == "IA")
                         {
-                            sprite_joueur_pos.X += 1;
+                            sprite_joueur_pos.X += 10;
                         }
                         else
                         {
-                            sprite_IA_pos.X -= 1;
+                            sprite_IA_pos.X -= 10;
                         }
-                    }else if (anim_frame == 50 && anim_time < 19)
+                    }else if (anim_frame >= 50 && anim_frame <= 80)
                     {
-                        if(anim_time % 3 == 0)
+                        if(anim_frame % 10 == 0)
                         {
                             _spriteBatch.Begin();
                             _spriteBatch.Draw(flash, new System.Numerics.Vector2(0,0), Color.White);
                             _spriteBatch.End();
                         }
+                        anim_frame += 1;
                     }
-                    else
+                    else if (anim_frame < 130)
                     {
-                        anim_frame -= 1;
+                        anim_frame += 1;
                         if (animation_sur == "IA")
                         {
-                            sprite_joueur_pos.X -= 1;
+                            sprite_joueur_pos.X -= 10;
                         }
                         else
                         {
-                            sprite_IA_pos.X += 1;
+                            sprite_IA_pos.X += 10;
                         }
                     }
-                    if (anim_frame == 0)
+                    else
                     {
                         animation_en_cour = "non";
                         anim_time = 0;
