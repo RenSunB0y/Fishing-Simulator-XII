@@ -116,6 +116,7 @@ namespace Jeu_de_combat_avec_moteur
 
 
         private SpriteFont font;
+        private SpriteFont endFont;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
@@ -148,6 +149,9 @@ namespace Jeu_de_combat_avec_moteur
 
         System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
         System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
+        System.Numerics.Vector2 endTextPos = new System.Numerics.Vector2(250, 160);
+
+
 
         System.Numerics.Vector2 animation_origine_pos;
         System.Numerics.Vector2 animation_pos;
@@ -218,6 +222,7 @@ namespace Jeu_de_combat_avec_moteur
             bg_start = Content.Load<Texture2D>("bg start");
 
             font = Content.Load<SpriteFont>("Font");
+            endFont = Content.Load<SpriteFont>("EndFont");
             // Permet de verifier qu'il y a bien un periferique audio branche
             try
             {
@@ -261,6 +266,7 @@ namespace Jeu_de_combat_avec_moteur
                 // Code a executer si l'on se trouve dans l'ecran de menu
                 if (screen == "menu")
                 {
+
                     // Permet de gerer le slider
                     if (slider_button_pos.X < mousePos.X + 1 && slider_button_pos.X + slider_button_taille.X > mousePos.X && slider_button_pos.Y < mousePos.Y + 1 && slider_button_pos.Y + slider_button_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
@@ -288,6 +294,8 @@ namespace Jeu_de_combat_avec_moteur
                     // Change la difficultee en fonction du slider
                     difficult = (Convert.ToInt32(slider_button_pos.X) - 100) / 73;
 
+
+
                     // Permet de passe a l'ecran de selection de personnage si le boutton start est appuye
                     if (boutton_start_pos.X < mousePos.X + 1 && boutton_start_pos.X + boutton_start_taille.X > mousePos.X && boutton_start_pos.Y < mousePos.Y + 1 && boutton_start_pos.Y + boutton_start_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
@@ -305,7 +313,6 @@ namespace Jeu_de_combat_avec_moteur
                         song_playing = true;
                         selection_song.IsLooped = true;
                     }
-
                     // Verifie si on appuie sur un boutton de selection de classe
                     int compte = 0;
                     foreach (var b_pos in list_boutton_pos_selec)
@@ -389,15 +396,15 @@ namespace Jeu_de_combat_avec_moteur
                             switch (choixJoueur)
                             {
                                 case 1:
-                                    if (!iADef) //on verifie si l'ia se defends
+                                    if (!iADef) //on verifie si l'ia se defends ///C'est al qu'il faut changer cette histoire de block
                                     {
                                         classIA.hprestants -= classJoueur.att;
                                         classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionJoueur = "Votre coup a touche ! L'adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
+                                        resolutionJoueur = "Votre coup a touche !\nL'adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
                                     }
                                     else
                                     {
-                                        resolutionJoueur = "D'un geste habile, votre adversaire pare le coup, il ne perds pas de points de vie";
+                                        resolutionJoueur = "D'un geste habile, votre adversaire pare le coup,\nil ne perds pas de points de vie";
                                     }
                                     // Lance l'annimation
                                     animation_en_cour = "damage";
@@ -473,7 +480,7 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= 5;
                                             classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere,\nvotre adversaire prend votre fleche en pleine poirtine,il perd 5 points de vie";
+                                            resolutionJoueur = "Votre adversaire prend votre fleche en pleine poirtine,il perd 5 points de vie";
                                         }
                                         else
                                         {
@@ -695,12 +702,12 @@ namespace Jeu_de_combat_avec_moteur
                     // Verifie si un des deux joueurs n'a plus de HP
                     if (classJoueur.hprestants <= 0)
                     {
-                        winner = "ia";
+                        winner = "Vous avez\n perdu la\n  vie...";
                         screen = "end";
                     }
                     if (classIA.hprestants <= 0)
                     {
-                        winner = "joueur";
+                        winner = "Vous avez\n   gagne !";
                         screen = "end";
                     }
 
@@ -730,9 +737,8 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
-
+                _spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
                 _spriteBatch.End();
-
             }
             else if (screen == "selec")
             {
@@ -1007,6 +1013,7 @@ namespace Jeu_de_combat_avec_moteur
             {
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(bg_ecrand_de_fin, new System.Numerics.Vector2(0, 0), Color.White);
+                _spriteBatch.DrawString(endFont, winner, endTextPos, Color.Black);
                 _spriteBatch.End();
             }
 
