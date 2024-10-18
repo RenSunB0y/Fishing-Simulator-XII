@@ -60,7 +60,7 @@ namespace Jeu_de_combat_avec_moteur
         bool song_playing = false;
 
 
-        Texture2D button_start;
+        Texture2D button_play;
         Texture2D classe1Texture;
         Texture2D classe2Texture;
         Texture2D classe3Texture;
@@ -82,7 +82,6 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D arrow;
 
         Texture2D boutton_att;
-        Texture2D kirbyTexture;
         Texture2D attackTexture;
         Texture2D healthTexture;
         Texture2D ui_fight;
@@ -120,17 +119,16 @@ namespace Jeu_de_combat_avec_moteur
         private SpriteBatch _spriteBatch;
 
         string screen = "menu";
-        bool testpress = false;
 
 
 
-        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(148, 64);
+        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(270, 108);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
         System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(850, 48);
 
-        System.Numerics.Vector2 boutton_start_pos = new System.Numerics.Vector2(450, 100);
+        System.Numerics.Vector2 boutton_start_pos = new System.Numerics.Vector2(405, 50);
         System.Numerics.Vector2 boutton1_pos = new System.Numerics.Vector2(40, 150);
         System.Numerics.Vector2 boutton2_pos = new System.Numerics.Vector2(290, 150);
         System.Numerics.Vector2 boutton3_pos = new System.Numerics.Vector2(540, 150);
@@ -172,7 +170,7 @@ namespace Jeu_de_combat_avec_moteur
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Charge tout les assets qui vont être utilisé
-            button_start = Content.Load<Texture2D>("button Start");
+            button_play = Content.Load<Texture2D>("play");
             classe1Texture = Content.Load<Texture2D>("bouton Choix Damager");
             classe2Texture = Content.Load<Texture2D>("bouton Choix Healer");
             classe3Texture = Content.Load<Texture2D>("bouton Choix Tank");
@@ -721,7 +719,7 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(slider_barre, slider_barre_pos, Color.White);
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
-                _spriteBatch.Draw(button_start, boutton_start_pos, Color.White);
+                _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
 
                 _spriteBatch.End();
 
@@ -862,25 +860,27 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     anim_frame += 1;
                     animation_pos.Y -= 10;
-                    if (anim_frame > 20)
+                    if (anim_frame > 30)
                     {
                         Random rand = new Random();
-                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
-                        animation_pos.Y = animation_origine_pos.Y + rand.Next(80, 400);
+                        animation_pos.X = animation_origine_pos.X + rand.Next(-50, 350);
+                        animation_pos.Y = animation_origine_pos.Y + rand.Next(200, 400);
                         anim_frame = 0;
                         anim_time += 1;
                     }
-
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(arrow, animation_pos, Color.White);
-                    _spriteBatch.End();
-
                     if (anim_time == 5)
                     {
                         animation_en_cour = "non";
                         anim_time = 0;
                         anim_frame = 0;
                     }
+                    else
+                    {
+                        _spriteBatch.Begin();
+                        _spriteBatch.Draw(arrow, animation_pos, Color.White);
+                        _spriteBatch.End();
+                    }
+
                 }
                 else if (animation_en_cour == "spe_ranger_2")
                 {
@@ -910,6 +910,8 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     anim_frame += 1;
                     animation_pos.Y -= 3;
+
+
                     if (anim_frame > 27)
                     {
                         Random rand = new Random();
@@ -919,16 +921,21 @@ namespace Jeu_de_combat_avec_moteur
                         anim_time += 1;
                     }
 
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
-                    _spriteBatch.End();
-
                     if (anim_time == 4)
                     {
                         animation_en_cour = "non";
                         anim_time = 0;
                         anim_frame = 0;
                     }
+                    else
+                    {
+                        _spriteBatch.Begin();
+                        _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
+                        _spriteBatch.End();
+                    }
+
+
+
                 }
 
 
