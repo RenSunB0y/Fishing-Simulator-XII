@@ -480,7 +480,7 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= 5;
                                             classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre adversaire prend votre fleche en pleine poirtine,il perd 5 points de vie";
+                                            resolutionJoueur = "Votre adversaire prend votre fleche en pleine poirtine,\nil perd 5 points de vie";
                                         }
                                         else
                                         {
