@@ -78,8 +78,8 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D hit_effect_1;
         Texture2D hit_effect_2;
         Texture2D hit_effect_3;
-
-        Texture2D def;
+        Texture2D def_effect;
+        Texture2D arrow;
 
         Texture2D boutton_att;
         Texture2D kirbyTexture;
@@ -190,6 +190,8 @@ namespace Jeu_de_combat_avec_moteur
             hit_effect_1 = Content.Load<Texture2D>("effect hit 1");
             hit_effect_2 = Content.Load<Texture2D>("effect hit 2");
             hit_effect_3 = Content.Load<Texture2D>("effect hit 3");
+            def_effect = Content.Load<Texture2D>("anim def");
+            arrow = Content.Load<Texture2D>("arrow");
 
             boutton_att = Content.Load<Texture2D>("boutton_select");
             attackTexture = Content.Load<Texture2D>("attack");
@@ -428,16 +430,16 @@ namespace Jeu_de_combat_avec_moteur
                                             joueurRangerSpe = true;
                                             joueurRangerCharge = 1;
                                             // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_1";
-                                            animation_sur = "joueur";
+                                            animation_en_cour = "spe_ranger_2";
+                                            animation_sur = "IA";
                                         }
                                         else
                                         {
                                             joueurRangerCharge += 1;
                                             resolutionJoueur = "Vous prenez le temps d'ajuster votre flèche...";
                                             // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_2";
-                                            animation_sur = "IA";
+                                            animation_en_cour = "spe_ranger_1";
+                                            animation_sur = "joueur";
                                         }
                                     }
                                     else if (nomClasseJoueur == "Healer")
@@ -620,15 +622,15 @@ namespace Jeu_de_combat_avec_moteur
                                         iaRangerSpe = true;
                                         iaRangerCharge = 1;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_1";
-                                        animation_sur = "IA";
+                                        animation_en_cour = "spe_ranger_2";
+                                        animation_sur = "joueur";
                                     }
                                     else
                                     {
                                         iaRangerCharge += 1;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_2";
-                                        animation_sur = "joueur";
+                                        animation_en_cour = "spe_ranger_1";
+                                        animation_sur = "IA";
                                     }
                                 else if (nomClasseIA == "Healer")
                                 {
@@ -734,7 +736,7 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(list_boutton_texture_selec[3], list_boutton_pos_selec[3], Color.White);
                 _spriteBatch.End();
             }
-            else if (screen == "game")
+            else if (screen == "game" || animation_en_cour != "non")
             {
 
 
@@ -796,6 +798,7 @@ namespace Jeu_de_combat_avec_moteur
                     anim_frame = 100;
                 }
 
+
                 if (animation_en_cour == "damage")
                 {
                     anim_frame += 1;
@@ -821,24 +824,86 @@ namespace Jeu_de_combat_avec_moteur
                 }
                 else if (animation_en_cour == "def")
                 {
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
-                    _spriteBatch.End();
+                    animation_pos.X = animation_origine_pos.X + 80;
+                    animation_pos.Y = animation_origine_pos.Y + 140;
+
+                    if (anim_frame < 8)
+                    {
+                        _spriteBatch.Begin();
+                        _spriteBatch.Draw(def_effect, animation_pos, Color.White);
+                        _spriteBatch.End();
+                    }
+                    else if (anim_frame >= 16)
+                    {
+                        anim_frame = 0;
+                        anim_time += 1;
+                    }
+                    anim_frame += 1;
+
+                    if (anim_time == 5)
+                    {
+                        animation_en_cour = "non";
+                        anim_time = 0;
+                        anim_frame = 0;
+                    }
                 }
                 else if (animation_en_cour == "spe_damager")
                 {
+                    animation_en_cour = "non";
 
                 }
                 else if (animation_en_cour == "spe_tank")
                 {
+                    animation_en_cour = "non";
+
 
                 }
                 else if (animation_en_cour == "spe_ranger_1")
                 {
+                    anim_frame += 1;
+                    animation_pos.Y -= 10;
+                    if (anim_frame > 20)
+                    {
+                        Random rand = new Random();
+                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
+                        animation_pos.Y = animation_origine_pos.Y + rand.Next(80, 400);
+                        anim_frame = 0;
+                        anim_time += 1;
+                    }
 
+                    _spriteBatch.Begin();
+                    _spriteBatch.Draw(arrow, animation_pos, Color.White);
+                    _spriteBatch.End();
+
+                    if (anim_time == 5)
+                    {
+                        animation_en_cour = "non";
+                        anim_time = 0;
+                        anim_frame = 0;
+                    }
                 }
                 else if (animation_en_cour == "spe_ranger_2")
                 {
+                    anim_frame += 1;
+                    if (anim_frame > 11)
+                    {
+                        Random rand = new Random();
+                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
+                        animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
+                        anim_frame = 0;
+                        anim_time += 1;
+                    }
+
+                    _spriteBatch.Begin();
+                    _spriteBatch.Draw(list_animation[anim_frame / 4], animation_pos, Color.White);
+                    _spriteBatch.End();
+
+                    if (anim_time == 10)
+                    {
+                        animation_en_cour = "non";
+                        anim_time = 0;
+                        anim_frame = 0;
+                    }
 
                 }
                 else if (animation_en_cour == "spe_healer")
