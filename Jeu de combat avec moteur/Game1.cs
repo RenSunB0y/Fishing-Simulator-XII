@@ -868,8 +868,6 @@ namespace Jeu_de_combat_avec_moteur
                 }
                 else if (animation_en_cour == "spe_damager")
                 {
-                    animation_en_cour = "non";
-
                 }
                 else if (animation_en_cour == "spe_tank")
                 {
@@ -917,8 +915,6 @@ namespace Jeu_de_combat_avec_moteur
                         anim_time = 0;
                         anim_frame = 0;
                     }
-
-
                 }
                 else if (animation_en_cour == "spe_ranger_1")
                 {
