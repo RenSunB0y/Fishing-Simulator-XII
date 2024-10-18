@@ -459,7 +459,7 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= classJoueur.att;
                                             classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant,\nvotre adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
+                                            resolutionJoueur = "Vous sacrifiez 1 point de vie puis vous vous jetez\nsur votre adversaire qui perd " + classJoueur.att.ToString() + " points de vie";
                                         }
                                         else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
