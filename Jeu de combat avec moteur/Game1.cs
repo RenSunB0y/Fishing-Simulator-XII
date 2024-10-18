@@ -106,6 +106,7 @@ namespace Jeu_de_combat_avec_moteur
         private SpriteFont font;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont _spriteFont;
 
         string screen = "menu";
         bool testpress = false;
@@ -134,6 +135,8 @@ namespace Jeu_de_combat_avec_moteur
 
         System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
 
+        System.Numerics.Vector2 textbox = new System.Numerics.Vector2(540, 500);
+
 
         public Game1()
         {
@@ -143,6 +146,7 @@ namespace Jeu_de_combat_avec_moteur
             _graphics.PreferredBackBufferWidth = 1080;  // set this value to the desired width of your window
             _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
             _graphics.ApplyChanges();
+
         }
         
         protected override void Initialize()
@@ -170,6 +174,8 @@ namespace Jeu_de_combat_avec_moteur
             sprite_classe2Texture_IA = Content.Load<Texture2D>("healer droite");
             sprite_classe3Texture_IA = Content.Load<Texture2D>("tank droite");
             sprite_classe4Texture_IA = Content.Load<Texture2D>("ranger droite");
+
+            _spriteFont = Content.Load<SpriteFont>("Font");
 
             boutton_att = Content.Load<Texture2D>("boutton_select");
             attackTexture = Content.Load<Texture2D>("attack");
@@ -261,7 +267,7 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     screen = "selec";
                 }
-
+                
 
 
             }
