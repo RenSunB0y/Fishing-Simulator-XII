@@ -368,12 +368,105 @@ namespace Jeu_de_combat_avec_moteur
                     // Tour du joueur
                     if (tour == "joueur")
                     {
+                            //On initialise le tour : choix du joueur ET de l'ia pour faciliter les interactions.
                         //Reset global des variables
                         resolutionJoueur = " ";
                         resolutionIA = " ";
                         joueurDef = false; //reset de la parade 
                         classJoueur.hpPerdus = 0;
                         joueurDmgSpe = false;
+
+                        iADef = false; //reset de la parade
+                        choixIA = 0;
+                        classIA.hpPerdus = 0;
+                        iaDmgSpe = false;
+
+                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
+                        {
+                            classIA.att--;
+                            iaTankSpe = false;
+                        }
+
+                        // Choisi si le choix de l'IA sera optimisee en fonction de la difficutle
+                        Random rand = new Random();
+                        choixOpti = rand.Next(difficult, 15);
+
+                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimise
+                        if (nomClasseIA == "Damager")
+                        {
+                            if (choixOpti >= 10)
+                            {
+                                choixIA = 1;
+                            }
+                            else
+                            {
+                                choixIA = rand.Next(1, 4);
+                            }
+                        }
+                        else if (nomClasseIA == "Healer")
+                        {
+                            if (choixOpti >= 10)
+                            {
+                                if (classIA.hprestants <= 2)
+                                {
+                                    choixIA = 3;
+                                }
+                                else
+                                {
+                                    choixIA = 1;
+                                }
+                            }
+                            else
+                            {
+                                choixIA = rand.Next(1, 4);
+                            }
+                        }
+                        else if (nomClasseIA == "Tank")
+                        {
+                            if (choixOpti >= 10)
+                            {
+                                if (classIA.hprestants >= 2)
+                                {
+                                    choixIA = 3;
+                                }
+                                else
+                                {
+                                    choixIA = 1;
+                                }
+                            }
+                            else
+                            {
+                                choixIA = rand.Next(1, 4);
+                            }
+                        }
+                        else if (nomClasseIA == "Ranger")
+                        {
+                            if (choixOpti >= 10)
+                            {
+                                if (classIA.hprestants >= 2)
+                                {
+                                    choixIA = 3;
+                                }
+                                else if (iaRangerCharge == 2)
+                                {
+                                    choixIA = 3;
+                                }
+                                else
+                                {
+                                    choixIA = 1;
+                                }
+                            }
+                            else
+                            {
+                                choixIA = rand.Next(1, 4);
+                            }
+                        }
+
+                        if (choixIA == 2)
+                        {
+                            iADef = true;
+                        }
+
                         if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
                         {
                             classJoueur.att--;
@@ -497,96 +590,10 @@ namespace Jeu_de_combat_avec_moteur
                     // Tour de l'IA
                     else if (tour == "IA")
                     {
-                        iADef = false; //reset de la parade
-                        choixIA = 0;
-                        classIA.hpPerdus = 0;
-                        iaDmgSpe = false;
-                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
-                        {
-                            classIA.att--;
-                            iaTankSpe = false;
-                        }
-
-                        // Choisi si le choix de l'IA sera optimisee en fonction de la difficutle
-                        Random rand = new Random();
-                        choixOpti = rand.Next(difficult, 15);
-
-                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimise
-                        if (nomClasseIA == "Damager")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                choixIA = 1;
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Healer")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants <= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Tank")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants >= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Ranger")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants >= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else if (iaRangerCharge == 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-
-                        // L'IA joue son tour
-                        if (choixIA == 2)
-                        {
-                            iADef = true;
-                        }
+                        
+                        
+                        // Resolution pour l'ia
+                        
                         switch (choixIA)
                         {
                             case 1:
