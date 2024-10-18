@@ -80,6 +80,7 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D hit_effect_3;
         Texture2D def_effect;
         Texture2D arrow;
+        Texture2D flash;
 
         Texture2D boutton_att;
         Texture2D attackTexture;
@@ -190,6 +191,7 @@ namespace Jeu_de_combat_avec_moteur
             hit_effect_3 = Content.Load<Texture2D>("effect hit 3");
             def_effect = Content.Load<Texture2D>("anim def");
             arrow = Content.Load<Texture2D>("arrow");
+            flash = Content.Load<Texture2D>("flash");
 
             boutton_att = Content.Load<Texture2D>("boutton_select");
             attackTexture = Content.Load<Texture2D>("attack");
@@ -852,7 +854,49 @@ namespace Jeu_de_combat_avec_moteur
                 }
                 else if (animation_en_cour == "spe_tank")
                 {
-                    animation_en_cour = "non";
+                    if (anim_frame == 100)
+                    {
+                        anim_frame = 0;
+                        anim_time = 1;
+                    }
+                    if (anim_frame > 50)
+                    {
+                        anim_frame -= 1;
+                        if (animation_sur == "IA")
+                        {
+                            sprite_joueur_pos.X += 1;
+                        }
+                        else
+                        {
+                            sprite_IA_pos.X -= 1;
+                        }
+                    }else if (anim_frame == 50 && anim_time < 19)
+                    {
+                        if(anim_time % 3 == 0)
+                        {
+                            _spriteBatch.Begin();
+                            _spriteBatch.Draw(flash, new System.Numerics.Vector2(0,0), Color.White);
+                            _spriteBatch.End();
+                        }
+                    }
+                    else
+                    {
+                        anim_frame -= 1;
+                        if (animation_sur == "IA")
+                        {
+                            sprite_joueur_pos.X -= 1;
+                        }
+                        else
+                        {
+                            sprite_IA_pos.X += 1;
+                        }
+                    }
+                    if (anim_frame == 0)
+                    {
+                        animation_en_cour = "non";
+                        anim_time = 0;
+                        anim_frame = 0;
+                    }
 
 
                 }
