@@ -169,7 +169,7 @@ namespace Jeu_de_combat_avec_moteur
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // Charge tout les assets qui vont être utilisé
+            // Charge tout les assets qui vont etre utilise
             button_play = Content.Load<Texture2D>("play");
             classe1Texture = Content.Load<Texture2D>("bouton Choix Damager");
             classe2Texture = Content.Load<Texture2D>("bouton Choix Healer");
@@ -212,7 +212,7 @@ namespace Jeu_de_combat_avec_moteur
             bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
             bg_start = Content.Load<Texture2D>("bg start");
 
-            // Permet de vérifier qu'il y a bien un periférique audio branché
+            // Permet de verifier qu'il y a bien un periferique audio branche
             try
             {
                 selection_song = Content.Load<SoundEffect>("select_song").CreateInstance();
@@ -237,13 +237,13 @@ namespace Jeu_de_combat_avec_moteur
 
         }
 
-        // Début de la fonction Update qui se répéte en boucle (c'est ici qu'est gérée tout la partie fonctionnnel du jeu) 
+        // Debut de la fonction Update qui se repete en boucle (c'est ici qu'est geree tout la partie fonctionnnel du jeu) 
         protected override void Update(GameTime gameTime)
         {
 
             if (animation_en_cour == "non")
             {
-                // Permet d'avoir en mémoire tout les input fait par le joueur
+                // Permet d'avoir en memoire tout les input fait par le joueur
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                          Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
@@ -252,10 +252,10 @@ namespace Jeu_de_combat_avec_moteur
                 mousePos.X = mouseState.X;
                 mousePos.Y = mouseState.Y;
 
-                // Code à executer si l'on se trouve dans l'écran de menu
+                // Code a executer si l'on se trouve dans l'ecran de menu
                 if (screen == "menu")
                 {
-                    // Permet de gérer le slider
+                    // Permet de gerer le slider
                     if (slider_button_pos.X < mousePos.X + 1 && slider_button_pos.X + slider_button_taille.X > mousePos.X && slider_button_pos.Y < mousePos.Y + 1 && slider_button_pos.Y + slider_button_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         control_slider = true;
@@ -279,17 +279,17 @@ namespace Jeu_de_combat_avec_moteur
                             slider_button_pos.X = mousePos.X - 50;
                         }
                     }
-                    // Change la difficultée en fonction du slider
+                    // Change la difficultee en fonction du slider
                     difficult = (Convert.ToInt32(slider_button_pos.X) - 100) / 73;
 
-                    // Permet de passé à l'écran de selection de personnage si le boutton start est appuyé
+                    // Permet de passe a l'ecran de selection de personnage si le boutton start est appuye
                     if (boutton_start_pos.X < mousePos.X + 1 && boutton_start_pos.X + boutton_start_taille.X > mousePos.X && boutton_start_pos.Y < mousePos.Y + 1 && boutton_start_pos.Y + boutton_start_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         screen = "selec";
                     }
 
                 }
-                // Code à executer si l'on se trouve dans l'écran de selection de personnage
+                // Code a executer si l'on se trouve dans l'ecran de selection de personnage
                 else if (screen == "selec")
                 {
                     // Lance la musique
@@ -311,7 +311,7 @@ namespace Jeu_de_combat_avec_moteur
                         compte++;
                     }
 
-                    // Assigne le choix du joueur à une classe spécifique
+                    // Assigne le choix du joueur a une classe specifique
                     if (choixClasseJoueur != 10)
                     {
                         switch (choixClasseJoueur)
@@ -337,12 +337,12 @@ namespace Jeu_de_combat_avec_moteur
                         screen = "game";
                         selection_song.Stop();
                         song_playing = false;
-                        // Fait choisir une classe aléatoirement par l'IA
+                        // Fait choisir une classe aleatoirement par l'IA
                         ChoixIA();
                     }
 
                 }
-                // Code à executer si l'on se trouve dans l'écran de jeu
+                // Code a executer si l'on se trouve dans l'ecran de jeu
                 else if (screen == "game")
                 {
                     // Lance la musique
@@ -360,13 +360,13 @@ namespace Jeu_de_combat_avec_moteur
                         joueurDef = false; //reset de la parade 
                         classJoueur.hpPerdus = 0;
                         joueurDmgSpe = false;
-                        if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilisé son spell
+                        if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
                         {
                             classJoueur.att--;
                             joueurTankSpe = false;
                         }
 
-                        //Verifie si un boutton d'action est appuyé
+                        //Verifie si un boutton d'action est appuye
                         int compte = 0;
                         foreach (var b_pos in list_boutton_combat_pos)
                         {
@@ -382,11 +382,11 @@ namespace Jeu_de_combat_avec_moteur
                             switch (choixJoueur)
                             {
                                 case 1:
-                                    if (!iADef) //on verifie si l'ia se défends
+                                    if (!iADef) //on verifie si l'ia se defends
                                     {
                                         classIA.hprestants -= classJoueur.att;
                                         classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionJoueur = "Votre coup a touché ! L'adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
+                                        resolutionJoueur = "Votre coup a touche ! L'adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
                                     }
                                     else
                                     {
@@ -434,7 +434,7 @@ namespace Jeu_de_combat_avec_moteur
                                         else
                                         {
                                             joueurRangerCharge += 1;
-                                            resolutionJoueur = "Vous prenez le temps d'ajuster votre flèche...";
+                                            resolutionJoueur = "Vous prenez le temps d'ajuster votre fleche...";
                                             // Lance l'annimation
                                             animation_en_cour = "spe_ranger_1";
                                             animation_sur = "joueur";
@@ -446,32 +446,32 @@ namespace Jeu_de_combat_avec_moteur
                                         animation_en_cour = "spe_healer";
                                         animation_sur = "joueur";
                                     }
-                                    if (joueurTankSpe) //si le joueur est tank ET a lancé son att spe, on lance une attaque apres le buff stat
+                                    if (joueurTankSpe) //si le joueur est tank ET a lance son att spe, on lance une attaque apres le buff stat
                                     {
-                                        if (!iADef) //on verifie si l'ia ne se défends pas
+                                        if (!iADef) //on verifie si l'ia ne se defends pas
                                         {
                                             classIA.hprestants -= classJoueur.att;
                                             classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
                                             resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant, votre adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
                                         }
-                                        else if (joueurTankSpe) //on vérifie si le spell du tank est actif, si oui on ne pare qu'1 point de dégat
+                                        else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
                                             classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous réussissez a traverser la parade de votre adversaire ! Il a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
+                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire ! Il a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
                                         }
                                     }
                                     else if (joueurRangerSpe)
                                     {
-                                        if (!iADef) //on verifie si l'ia ne se défends pas
+                                        if (!iADef) //on verifie si l'ia ne se defends pas
                                         {
                                             classIA.hprestants -= 5;
                                             classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere, votre adversaire prend votre flèche en pleine poirtine, il perd 5 points de vie";
+                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere, votre adversaire prend votre fleche en pleine poirtine, il perd 5 points de vie";
                                         }
                                         else
                                         {
                                             classIA.hprestants -= 5;
-                                            resolutionJoueur = "Vous tirez votre flèche, votre adversaire tente de la dervier, sans succes, il perd 5 points de vie";
+                                            resolutionJoueur = "Vous tirez votre fleche, votre adversaire tente de la dervier, sans succes, il perd 5 points de vie";
                                         }
                                     }
                                     break;
@@ -487,17 +487,17 @@ namespace Jeu_de_combat_avec_moteur
                         choixIA = 0;
                         classIA.hpPerdus = 0;
                         iaDmgSpe = false;
-                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilisé son spell
+                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
                         {
                             classIA.att--;
                             iaTankSpe = false;
                         }
 
-                        // Choisi si le choix de l'IA sera optimisée en fonction de la difficutlé
+                        // Choisi si le choix de l'IA sera optimisee en fonction de la difficutle
                         Random rand = new Random();
                         choixOpti = rand.Next(difficult, 15);
 
-                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimisé
+                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimise
                         if (nomClasseIA == "Damager")
                         {
                             if (choixOpti >= 10)
@@ -576,15 +576,15 @@ namespace Jeu_de_combat_avec_moteur
                         switch (choixIA)
                         {
                             case 1:
-                                if (!joueurDef) //on verifie si le joueur se défends
+                                if (!joueurDef) //on verifie si le joueur se defends
                                 {
                                     classJoueur.hprestants -= classIA.att;
                                     classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                    resolutionIA = "L'adversaire vous a asséné un coup ! Vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                    resolutionIA = "L'adversaire vous a assene un coup ! Vous perdez " + classIA.att.ToString() + " point(s) de vie...";
                                 }
                                 else
                                 {
-                                    resolutionIA = "Vous parez le coup grâce a une roulade bien timée";
+                                    resolutionIA = "Vous parez le coup grace a une roulade bien timee";
                                 }
                                 // Lance l'annimation
                                 animation_en_cour = "damage";
@@ -592,7 +592,7 @@ namespace Jeu_de_combat_avec_moteur
                                 break;
 
                             case 2:
-                                resolutionIA = "L'adversaire tente de se défendre...";
+                                resolutionIA = "L'adversaire tente de se defendre...";
                                 // Lance l'annimation
                                 animation_en_cour = "def";
                                 animation_sur = "IA";
@@ -639,21 +639,21 @@ namespace Jeu_de_combat_avec_moteur
                                 resolutionIA = "Votre adversaire prends le temps d'ajuster son tir...";
                                 if (iaTankSpe)
                                 {
-                                    if (!joueurDef) //on verifie si le joueur se défends
+                                    if (!joueurDef) //on verifie si le joueur se defends
                                     {
                                         classJoueur.hprestants -= classIA.att;
                                         classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "L'adversaire vous a asséné un coup puissant ! Grâce à son sacrifice de 1 point de vie, vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie, vous perdez " + classIA.att.ToString() + " point(s) de vie...";
                                     }
-                                    else if (iaTankSpe) //on vérifie si le spell du tank est actif, si oui on ne pare qu'1 point de dégat
+                                    else if (iaTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                     {
                                         classJoueur.hprestants -= classIA.att - 1;
-                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grâce a cela, il traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela, il traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
                                     }
                                 }
                                 else if (iaRangerSpe)
                                 {
-                                    if (!joueurDef) //on verifie si l'ia ne se défends pas
+                                    if (!joueurDef) //on verifie si l'ia ne se defends pas
                                     {
                                         classJoueur.hprestants -= 5;
                                         classJoueur.hpPerdus = 5; //on stock l'info pour le renvoi (on reset a chaque tour)
@@ -662,7 +662,7 @@ namespace Jeu_de_combat_avec_moteur
                                     else
                                     {
                                         classJoueur.hprestants -= 5;
-                                        resolutionIA = "Vous tentez de parer la fleche tirée par votre adversaire, malheureusement elle est trop puissante et déchire votre armure, vous perdez 5 points de vie";
+                                        resolutionIA = "Vous tentez de parer la fleche tiree par votre adversaire, malheureusement elle est trop puissante et dechire votre armure, vous perdez 5 points de vie";
                                     }
                                 }
                                 break;
@@ -677,12 +677,12 @@ namespace Jeu_de_combat_avec_moteur
                         if (iaDmgSpe)
                         {
                             classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionIA += " Malheureusement vous prenez une contre attaque désesperée et perdez " + classJoueur.hpPerdus + "point(s) de vie";
+                            resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "point(s) de vie";
                         }
                         tour = "joueur";
                     }
 
-                    // Vérifie si un des deux joueurs n'a plus de HP
+                    // Verifie si un des deux joueurs n'a plus de HP
                     if (classJoueur.hprestants <= 0)
                     {
                         winner = "ia";
@@ -696,7 +696,7 @@ namespace Jeu_de_combat_avec_moteur
 
                 }
 
-                // Code à executer si l'on se trouve dans l'écran de fin
+                // Code a executer si l'on se trouve dans l'ecran de fin
                 else if (screen == "end")
                 {
 
@@ -706,12 +706,12 @@ namespace Jeu_de_combat_avec_moteur
             base.Update(gameTime);
         }
 
-        // Début de la fonction Draw qui se répéte en boucle (c'est ici qu'est gérée tout la partie graphique du jeu) 
+        // Debut de la fonction Draw qui se repete en boucle (c'est ici qu'est geree tout la partie graphique du jeu) 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // Affiche les graphisme à l'écran en fonction de quelle écran doit être affiché 
+            // Affiche les graphisme a l'ecran en fonction de quelle ecran doit etre affiche 
             if (screen == "menu")
             {
                 _spriteBatch.Begin();
@@ -1006,7 +1006,7 @@ namespace Jeu_de_combat_avec_moteur
             {
                 hp = 3;
                 att = 2;
-                descSpell = "Répliquer les dégats subis ce tour (ne vous protege pas des dégats)";
+                descSpell = "Repliquer les degats subis ce tour (ne vous protege pas des degats)";
             }
         }
 
@@ -1037,7 +1037,7 @@ namespace Jeu_de_combat_avec_moteur
             public Tank()
             {
                 hp = 5;
-                descSpell = "Sacrifier 1 point de vie pour gagner 1 point de dégats pour ce tour puis attaquer";
+                descSpell = "Sacrifier 1 point de vie pour gagner 1 point de degats pour ce tour puis attaquer";
             }
         }
         public class Ranger : Entitees
