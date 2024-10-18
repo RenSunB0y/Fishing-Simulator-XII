@@ -393,7 +393,7 @@ namespace Jeu_de_combat_avec_moteur
                                     {
                                         classIA.hprestants -= classJoueur.att;
                                         classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionJoueur = "Votre coup a touche ! L'adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
+                                        resolutionJoueur = "Votre coup a touche ! L'adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
                                     }
                                     else
                                     {
@@ -459,12 +459,12 @@ namespace Jeu_de_combat_avec_moteur
                                         {
                                             classIA.hprestants -= classJoueur.att;
                                             classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant,\nvotre adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
+                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant,\nvotre adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
                                         }
                                         else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
                                             classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
+                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " points de vie.";
                                         }
                                     }
                                     else if (joueurRangerSpe)
@@ -587,7 +587,7 @@ namespace Jeu_de_combat_avec_moteur
                                 {
                                     classJoueur.hprestants -= classIA.att;
                                     classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                    resolutionIA = "L'adversaire vous a assene un coup ! Vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                    resolutionIA = "L'adversaire vous a assene un coup !\nVous perdez " + classIA.att.ToString() + " points de vie...";
                                 }
                                 else
                                 {
@@ -653,12 +653,12 @@ namespace Jeu_de_combat_avec_moteur
                                     {
                                         classJoueur.hprestants -= classIA.att;
                                         classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie,\nvous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie,\nvous perdez " + classIA.att.ToString() + " points de vie...";
                                     }
                                     else if (iaTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                     {
                                         classJoueur.hprestants -= classIA.att - 1;
-                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela,\nil traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
+                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela,\nil traverse votre parade et vous perdez " + classIA.att.ToString() + " points de vie...";
                                     }
                                 }
                                 else if (iaRangerSpe)
@@ -681,13 +681,13 @@ namespace Jeu_de_combat_avec_moteur
                         if (joueurDmgSpe)
                         {
                             classIA.hprestants -= classJoueur.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " point(s) de vie";
+                            resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " points de vie";
                         }
 
                         if (iaDmgSpe)
                         {
                             classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "point(s) de vie";
+                            resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "points de vie";
                         }
                         tour = "joueur";
                     }
