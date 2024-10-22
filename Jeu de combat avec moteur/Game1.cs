@@ -57,11 +57,6 @@ namespace Jeu_de_combat_avec_moteur
         public static int anim_time = 0;
         public static string animation_sur = "  ";
 
-        public static int anim_frame = 0;
-        public static string animation_en_cour = "non";
-        public static int anim_time = 0;
-        public static string animation_sur = "";
-
 
         bool song_playing = false;
 
@@ -84,16 +79,11 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D hit_effect_1;
         Texture2D hit_effect_2;
         Texture2D hit_effect_3;
-<<<<<<< Updated upstream
         Texture2D def_effect;
         Texture2D arrow;
         Texture2D flash;
         Texture2D eyes_joueur;
         Texture2D eyes_IA;
-=======
-
-        Texture2D def;
->>>>>>> Stashed changes
 
         Texture2D boutton_att;
         Texture2D attackTexture;
@@ -138,15 +128,9 @@ namespace Jeu_de_combat_avec_moteur
 
 
 
-<<<<<<< Updated upstream
         System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(270, 108);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
-=======
-        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(148, 64);
-        System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250,250);
-        System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100,100);
->>>>>>> Stashed changes
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
         System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(850, 48);
 
@@ -167,15 +151,12 @@ namespace Jeu_de_combat_avec_moteur
 
         System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
 
-<<<<<<< Updated upstream
         System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
         System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
         System.Numerics.Vector2 endTextPos = new System.Numerics.Vector2(250, 160);
 
 
 
-=======
->>>>>>> Stashed changes
         System.Numerics.Vector2 animation_origine_pos;
         System.Numerics.Vector2 animation_pos;
 
@@ -219,18 +200,12 @@ namespace Jeu_de_combat_avec_moteur
             hit_effect_1 = Content.Load<Texture2D>("effect hit 1");
             hit_effect_2 = Content.Load<Texture2D>("effect hit 2");
             hit_effect_3 = Content.Load<Texture2D>("effect hit 3");
-<<<<<<< Updated upstream
             def_effect = Content.Load<Texture2D>("anim def");
             arrow = Content.Load<Texture2D>("arrow");
             flash = Content.Load<Texture2D>("flash");
             eyes_joueur = Content.Load<Texture2D>("eyes joueur");
             eyes_IA = Content.Load<Texture2D>("eyes IA");
 
-=======
-
-            boutton_att = Content.Load<Texture2D>("boutton_select");
-            attackTexture = Content.Load<Texture2D>("attack");
->>>>>>> Stashed changes
             healthTexture = Content.Load<Texture2D>("Coeur full");
             ui_fight = Content.Load<Texture2D>("ui fight");
 
@@ -275,9 +250,6 @@ namespace Jeu_de_combat_avec_moteur
             list_animation = new List<Texture2D>() { hit_effect_1, hit_effect_2, hit_effect_3 };
 
 
-            list_animation = new List<Texture2D>() { hit_effect_1, hit_effect_2, hit_effect_3 };
-
-
         }
 
         // Debut de la fonction Update qui se repete en boucle (c'est ici qu'est geree tout la partie fonctionnnel du jeu) 
@@ -285,13 +257,8 @@ namespace Jeu_de_combat_avec_moteur
         {
 
             if (animation_en_cour == "non")
-<<<<<<< Updated upstream
             {
                 // Permet d'avoir en memoire tout les input fait par le joueur
-=======
-            { 
-                // Permet d'avoir en mémoire tout les input fait par le joueur
->>>>>>> Stashed changes
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                          Keyboard.GetState().IsKeyDown(Keys.Escape))
                     Exit();
@@ -300,7 +267,6 @@ namespace Jeu_de_combat_avec_moteur
                 mousePos.X = mouseState.X;
                 mousePos.Y = mouseState.Y;
 
-<<<<<<< Updated upstream
                 // Code a executer si l'on se trouve dans l'ecran de menu
                 if (screen == "menu")
                 {
@@ -321,22 +287,6 @@ namespace Jeu_de_combat_avec_moteur
                     }
                     if (control_slider)
                     {
-=======
-                // Code à executer si l'on se trouve dans l'écran de menu
-                if (screen == "menu")
-                {
-                    // Permet de gérer le slider
-                    if (slider_button_pos.X < mousePos.X + 1 && slider_button_pos.X + slider_button_taille.X > mousePos.X && slider_button_pos.Y < mousePos.Y + 1 && slider_button_pos.Y + slider_button_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        control_slider = true;
-                    }
-                    if (mouseState.LeftButton == ButtonState.Released)
-                    {
-                        control_slider = false;
-                    }
-                    if (control_slider) 
-                    {
->>>>>>> Stashed changes
                         if (mousePos.X - 50 < slider_barre_pos.X)
                         {
                             slider_button_pos.X = slider_barre_pos.X;
@@ -350,7 +300,6 @@ namespace Jeu_de_combat_avec_moteur
                             slider_button_pos.X = mousePos.X - 50;
                         }
                     }
-<<<<<<< Updated upstream
                     // Change la difficultee en fonction du slider
                     difficult = (Convert.ToInt32(slider_button_pos.X) - 100) / 73;
 
@@ -366,19 +315,6 @@ namespace Jeu_de_combat_avec_moteur
 
                 }
                 // Code a executer si l'on se trouve dans l'ecran de selection de personnage
-=======
-                    // Change la difficultée en fonction du slider
-                    difficult = (Convert.ToInt32(slider_button_pos.X) - 100)/73;
-
-                    // Permet de passé à l'écran de selection de personnage si le boutton start est appuyé
-                    if (boutton_start_pos.X < mousePos.X + 1 && boutton_start_pos.X + boutton_start_taille.X > mousePos.X && boutton_start_pos.Y < mousePos.Y + 1 && boutton_start_pos.Y + boutton_start_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        screen = "selec";
-                    }
-
-                }
-                // Code à executer si l'on se trouve dans l'écran de selection de personnage
->>>>>>> Stashed changes
                 else if (screen == "selec")
                 {
                     // Lance la musique
@@ -388,10 +324,6 @@ namespace Jeu_de_combat_avec_moteur
                         song_playing = true;
                         selection_song.IsLooped = true;
                     }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                     // Verifie si on appuie sur un boutton de selection de classe
                     int compte = 0;
                     foreach (var b_pos in list_boutton_pos_selec)
@@ -403,11 +335,7 @@ namespace Jeu_de_combat_avec_moteur
                         compte++;
                     }
 
-<<<<<<< Updated upstream
                     // Assigne le choix du joueur a une classe specifique
-=======
-                    // Assigne le choix du joueur à une classe spécifique
->>>>>>> Stashed changes
                     if (choixClasseJoueur != 10)
                     {
                         switch (choixClasseJoueur)
@@ -433,20 +361,12 @@ namespace Jeu_de_combat_avec_moteur
                         screen = "game";
                         selection_song.Stop();
                         song_playing = false;
-<<<<<<< Updated upstream
                         // Fait choisir une classe aleatoirement par l'IA
-=======
-                        // Fait choisir une classe aléatoirement par l'IA
->>>>>>> Stashed changes
                         ChoixIA();
                     }
 
                 }
-<<<<<<< Updated upstream
                 // Code a executer si l'on se trouve dans l'ecran de jeu
-=======
-                // Code à executer si l'on se trouve dans l'écran de jeu
->>>>>>> Stashed changes
                 else if (screen == "game")
                 {
                     // Lance la musique
@@ -459,7 +379,6 @@ namespace Jeu_de_combat_avec_moteur
                     // Tour du joueur
                     if (tour == "joueur")
                     {
-<<<<<<< Updated upstream
                             //On initialise le tour : choix du joueur ET de l'ia pour faciliter les interactions.
                         //Reset global des variables
                         joueurDef = false; //reset de la parade 
@@ -558,24 +477,12 @@ namespace Jeu_de_combat_avec_moteur
                         }
 
                         if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
-=======
-                        //Reset global des variables
-                        resolutionJoueur = "";
-                        joueurDef = false; //reset de la parade 
-                        classJoueur.hpPerdus = 0;
-                        joueurDmgSpe = false;
-                        if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilisé son spell
->>>>>>> Stashed changes
                         {
                             classJoueur.att--;
                             joueurTankSpe = false;
                         }
 
-<<<<<<< Updated upstream
                         //Verifie si un boutton d'action est appuye
-=======
-                        //Verifie si un boutton d'action est appuyé
->>>>>>> Stashed changes
                         int compte = 0;
                         foreach (var b_pos in list_boutton_combat_pos)
                         {
@@ -583,11 +490,8 @@ namespace Jeu_de_combat_avec_moteur
                             {
                                 choixJoueur = compte + 1;
                                 nManche++;
-<<<<<<< Updated upstream
                                 resolutionJoueur = " ";
                                 resolutionIA = " ";
-=======
->>>>>>> Stashed changes
                             }
                             compte++;
                         }
@@ -596,7 +500,6 @@ namespace Jeu_de_combat_avec_moteur
                             switch (choixJoueur)
                             {
                                 case 1:
-<<<<<<< Updated upstream
                                     if (!iADef) //on verifie si l'ia se defends ///C'est al qu'il faut changer cette histoire de block
                                     {
                                         classIA.hprestants -= classJoueur.att;
@@ -835,334 +738,15 @@ namespace Jeu_de_combat_avec_moteur
                             screen = "end";
                         }
                         verif_hp = false;
-
-                                    if (!iADef) //on verifie si l'ia se défends
-                                    {
-                                        classIA.hprestants -= classJoueur.att;
-                                        classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionJoueur = "Votre coup a touché ! L'adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
-                                    }
-                                    else
-                                    {
-                                        resolutionJoueur = "D'un geste habile, votre adversaire pare le coup, il ne perds pas de points de vie";
-                                    }
-                                    // Lance l'annimation
-                                    animation_en_cour = "damage";
-                                    animation_sur = "IA";
-                                    break;
-                                case 2:
-                                    joueurDef = true;
-                                    resolutionJoueur = "Vous tentez de bloquer !";
-                                    // Lance l'annimation
-                                    animation_en_cour = "def";
-                                    animation_sur = "joueur";
-                                    break;
-
-                                case 3:
-                                    classJoueur.speAtt();
-
-                                    if (nomClasseJoueur == "Damager")
-                                    { 
-                                        joueurDmgSpe = true;
-                                        // Lance l'annimation
-                                        animation_en_cour = "spe_damger";
-                                        animation_sur = "IA";
-                                    }
-                                    else if (nomClasseJoueur == "Tank")
-                                    { 
-                                        joueurTankSpe = true;
-                                        // Lance l'annimation
-                                        animation_en_cour = "spe_tank";
-                                        animation_sur = "IA";
-                                    }
-                                    else if (nomClasseJoueur == "Ranger")
-                                    {
-                                        if (joueurRangerCharge >= 2)
-                                        {
-                                            joueurRangerSpe = true;
-                                            joueurRangerCharge = 1;
-                                            // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_1";
-                                            animation_sur = "joueur";
-                                        }
-                                        else
-                                        {
-                                            joueurRangerCharge += 1;
-                                            resolutionJoueur = "Vous prenez le temps d'ajuster votre flèche...";
-                                            // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_2";
-                                            animation_sur = "IA";
-                                        }
-                                    }
-                                    else if (nomClasseJoueur == "Healer")
-                                    {
-                                        // Lance l'annimation
-                                        animation_en_cour = "spe_healer";
-                                        animation_sur = "joueur";
-                                    }
-                                    if (joueurTankSpe) //si le joueur est tank ET a lancé son att spe, on lance une attaque apres le buff stat
-                                    {
-                                        if (!iADef) //on verifie si l'ia ne se défends pas
-                                        {
-                                            classIA.hprestants -= classJoueur.att;
-                                            classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                            resolutionJoueur = "Vous mettez toute votre rage dans ce coup, cela vous fait perdre 1 point de vie cependant, votre adversaire a perdu " + classJoueur.att.ToString() + " point(s) de vie";
-                                        }
-                                        else if (joueurTankSpe) //on vérifie si le spell du tank est actif, si oui on ne pare qu'1 point de dégat
-                                        {
-                                            classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous réussissez a traverser la parade de votre adversaire ! Il a perdu " + (classJoueur.att - 1).ToString() + " point(s) de vie.";
-                                        }
-                                    }
-                                    else if (joueurRangerSpe)
-                                    {
-                                        if (!iADef) //on verifie si l'ia ne se défends pas
-                                        {
-                                            classIA.hprestants -= 5;
-                                            classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre tir est tellement puissant que vous tombez en arriere, votre adversaire prend votre flèche en pleine poirtine, il perd 5 points de vie";
-                                        }
-                                        else
-                                        {
-                                            classIA.hprestants -= 5;
-                                            resolutionJoueur = "Vous tirez votre flèche, votre adversaire tente de la dervier, sans succes, il perd 5 points de vie";
-                                        }
-                                    }
-                                    break;
-                            }
-                            choixJoueur = 10;
-                            tour = "IA";
-                        }
-                    }
-                    // Tour de l'IA
-                    else if (tour == "IA")
-                    {
-                        iADef = false; //reset de la parade
-                        choixIA = 0;
-                        classIA.hpPerdus = 0;
-                        iaDmgSpe = false;
-                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilisé son spell
-                        {
-                            classIA.att--;
-                            iaTankSpe = false;
-                        }
-
-                        // Choisi si le choix de l'IA sera optimisée en fonction de la difficutlé
-                        Random rand = new Random();
-                        choixOpti = rand.Next(difficult, 15);
-
-                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimisé
-                        if (nomClasseIA == "Damager")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                choixIA = 1;
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Healer")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants <= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Tank")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants >= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-                        else if (nomClasseIA == "Ranger")
-                        {
-                            if (choixOpti >= 10)
-                            {
-                                if (classIA.hprestants >= 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else if (iaRangerCharge == 2)
-                                {
-                                    choixIA = 3;
-                                }
-                                else
-                                {
-                                    choixIA = 1;
-                                }
-                            }
-                            else
-                            {
-                                choixIA = rand.Next(1, 4);
-                            }
-                        }
-
-                        // L'IA joue son tour
-                        if (choixIA == 2)
-                        {
-                            iADef = true;
-                        }
-                        switch (choixIA)
-                        {
-                            case 1:
-                                if (!joueurDef) //on verifie si le joueur se défends
-                                {
-                                    classJoueur.hprestants -= classIA.att;
-                                    classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                    resolutionIA = "L'adversaire vous a asséné un coup ! Vous perdez " + classIA.att.ToString() + " point(s) de vie...";
-                                }
-                                else
-                                {
-                                    resolutionIA = "Vous parez le coup grâce a une roulade bien timée";
-                                }
-                                // Lance l'annimation
-                                animation_en_cour = "damage";
-                                animation_sur = "joueur";
-                                break;
-
-                            case 2:
-                                resolutionIA = "L'adversaire tente de se défendre...";
-                                // Lance l'annimation
-                                animation_en_cour = "def";
-                                animation_sur = "IA";
-                                break;
-
-                            case 3:
-                                classIA.speAtt();
-                                if (nomClasseIA == "Damager")
-                                { 
-                                    iaDmgSpe = true;
-                                    // Lance l'annimation
-                                    animation_en_cour = "spe_damager";
-                                    animation_sur = "joueur";
-                                }
-                                if (nomClasseIA == "Tank")
-                                { 
-                                    iaTankSpe = true;
-                                    // Lance l'annimation
-                                    animation_en_cour = "spe_tank";
-                                    animation_sur = "joueur";
-                                }
-                                else if (nomClasseIA == "Ranger")
-                                    if (iaRangerCharge >= 2)
-                                    {
-                                        iaRangerSpe = true;
-                                        iaRangerCharge = 1;
-                                        // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_1";
-                                        animation_sur = "IA";
-                                    }
-                                    else
-                                    {
-                                        iaRangerCharge += 1;
-                                        // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_2";
-                                        animation_sur = "joueur";
-                                    }
-                                else if (nomClasseIA == "Healer")
-                                {
-                                    // Lance l'annimation
-                                    animation_en_cour = "spe_healer";
-                                    animation_sur = "IA";
-                                }
-                                resolutionIA = "Votre adversaire prends le temps d'ajuster son tir...";
-                                if (iaTankSpe)
-                                {
-                                    if (!joueurDef) //on verifie si le joueur se défends
-                                    {
-                                        classJoueur.hprestants -= classIA.att;
-                                        classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "L'adversaire vous a asséné un coup puissant ! Grâce à son sacrifice de 1 point de vie, vous perdez " + classIA.att.ToString() + " point(s) de vie...";
-                                    }
-                                    else if (iaTankSpe) //on vérifie si le spell du tank est actif, si oui on ne pare qu'1 point de dégat
-                                    {
-                                        classJoueur.hprestants -= classIA.att - 1;
-                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grâce a cela, il traverse votre parade et vous perdez " + classIA.att.ToString() + " point(s) de vie...";
-                                    }
-                                }
-                                else if (iaRangerSpe)
-                                {
-                                    if (!joueurDef) //on verifie si l'ia ne se défends pas
-                                    {
-                                        classJoueur.hprestants -= 5;
-                                        classJoueur.hpPerdus = 5; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "La fleche de votre adversaire vous traverse de part en part, vous perdez 5 points de vie";
-                                    }
-                                    else
-                                    {
-                                        classJoueur.hprestants -= 5;
-                                        resolutionIA = "Vous tentez de parer la fleche tirée par votre adversaire, malheureusement elle est trop puissante et déchire votre armure, vous perdez 5 points de vie";
-                                    }
-                                }
-                                break;
-                        }
-
-                        if (joueurDmgSpe)
-                        {
-                            classIA.hprestants -= classJoueur.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " point(s) de vie";
-                        }
-
-                        if (iaDmgSpe)
-                        {
-                            classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionIA += " Malheureusement vous prenez une contre attaque désesperée et perdez " + classJoueur.hpPerdus + "point(s) de vie";
-                        }
-                        tour = "joueur";
-                    }
-
-                    // Vérifie si un des deux joueurs n'a plus de HP
-                    if (classJoueur.hprestants <= 0)
-                    {
-                        winner = "ia";
-                        screen = "end";
-                    }
-                    if (classIA.hprestants <= 0)
-                    {
-                        winner = "joueur";
-                        screen = "end";
->>>>>>> Stashed changes
                     }
 
                 }
 
-<<<<<<< Updated upstream
                 // Code a executer si l'on se trouve dans l'ecran de fin
                 else if (screen == "end")
                 {
                     restart();
                     screen = "menu";
-=======
-                // Code à executer si l'on se trouve dans l'écran de fin
-                else if (screen == "end") 
-                { 
-
->>>>>>> Stashed changes
                 }
             }
 
@@ -1181,14 +765,9 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(bg_start, new System.Numerics.Vector2(0, 0), Color.White);
                 _spriteBatch.Draw(slider_barre, slider_barre_pos, Color.White);
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
-<<<<<<< Updated upstream
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
                 _spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
-=======
-                _spriteBatch.Draw(button_start, boutton_start_pos, Color.White);
-                
->>>>>>> Stashed changes
                 _spriteBatch.End();
             }
             else if (screen == "selec")
@@ -1204,11 +783,7 @@ namespace Jeu_de_combat_avec_moteur
             else if (screen == "game" || animation_en_cour != "non")
             {
 
-<<<<<<< Updated upstream
 
-=======
-                
->>>>>>> Stashed changes
                 _spriteBatch.Begin();
                 if (difficult == 10)
                 {
@@ -1269,16 +844,10 @@ namespace Jeu_de_combat_avec_moteur
                         animation_origine_pos = sprite_joueur_pos;
                         animation_pos = animation_origine_pos;
                     }
-<<<<<<< Updated upstream
                     anim_frame = 1000;
                 }
 
 
-=======
-                    anim_frame = 100;
-                }
-
->>>>>>> Stashed changes
                 if (animation_en_cour == "damage")
                 {
                     anim_frame += 1;
@@ -1301,7 +870,6 @@ namespace Jeu_de_combat_avec_moteur
                         anim_time = 0;
                         anim_frame = 0;
                     }
-<<<<<<< Updated upstream
                 }
                 else if (animation_en_cour == "def")
                 {
@@ -1457,30 +1025,10 @@ namespace Jeu_de_combat_avec_moteur
                         _spriteBatch.Draw(arrow, animation_pos, Color.White);
                         _spriteBatch.End();
                     }
-=======
-                } 
-                else if (animation_en_cour == "def")
-                {
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
-                    _spriteBatch.End();
-                }
-                else if (animation_en_cour == "spe_damager")
-                {
-
-                }
-                else if (animation_en_cour == "spe_tank")
-                {
-
-                }
-                else if (animation_en_cour == "spe_ranger_1")
-                {
->>>>>>> Stashed changes
 
                 }
                 else if (animation_en_cour == "spe_ranger_2")
                 {
-<<<<<<< Updated upstream
                     anim_frame += 1;
                     if (anim_frame > 11)
                     {
@@ -1501,19 +1049,14 @@ namespace Jeu_de_combat_avec_moteur
                         anim_time = 0;
                         anim_frame = 0;
                     }
-=======
->>>>>>> Stashed changes
 
                 }
                 else if (animation_en_cour == "spe_healer")
                 {
                     anim_frame += 1;
                     animation_pos.Y -= 3;
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
                     if (anim_frame > 27)
                     {
                         Random rand = new Random();
@@ -1523,20 +1066,12 @@ namespace Jeu_de_combat_avec_moteur
                         anim_time += 1;
                     }
 
-<<<<<<< Updated upstream
-=======
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
-                    _spriteBatch.End();
-
->>>>>>> Stashed changes
                     if (anim_time == 4)
                     {
                         animation_en_cour = "non";
                         anim_time = 0;
                         anim_frame = 0;
                     }
-<<<<<<< Updated upstream
                     else
                     {
                         _spriteBatch.Begin();
@@ -1545,16 +1080,6 @@ namespace Jeu_de_combat_avec_moteur
                     }
                 }
 
-=======
-                }
-
-
-
-
-
-
-
->>>>>>> Stashed changes
             }
             else if (screen == "end")
             {
