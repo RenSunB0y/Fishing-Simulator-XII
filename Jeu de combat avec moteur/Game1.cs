@@ -106,6 +106,8 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D bg_selec_perso;
         Texture2D bg_start;
 
+        Texture2D nom_du_jeu;
+
         SoundEffectInstance start_song;
         SoundEffectInstance selection_song;
         SoundEffectInstance fight_song;
@@ -154,8 +156,7 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
         System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
         System.Numerics.Vector2 endTextPos = new System.Numerics.Vector2(250, 160);
-
-
+        System.Numerics.Vector2 namePos = new System.Numerics.Vector2(300, 200);
 
         System.Numerics.Vector2 animation_origine_pos;
         System.Numerics.Vector2 animation_pos;
@@ -224,6 +225,8 @@ namespace Jeu_de_combat_avec_moteur
             bg_ecrand_de_fin = Content.Load<Texture2D>("bg ecran de fin");
             bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
             bg_start = Content.Load<Texture2D>("bg start");
+
+            nom_du_jeu = Content.Load<Texture2D>("name of the game");
 
             font = Content.Load<SpriteFont>("Font");
             endFont = Content.Load<SpriteFont>("EndFont");
@@ -767,7 +770,8 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
-                _spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
+                //_spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
+                _spriteBatch.Draw(nom_du_jeu, namePos, Color.White);
                 _spriteBatch.End();
             }
             else if (screen == "selec")
