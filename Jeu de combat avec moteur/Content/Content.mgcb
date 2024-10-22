@@ -342,11 +342,37 @@
 /processorParam:TextureFormat=Color
 /build:healer gauche.png
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+#begin name of the game.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:name of the game.png
+=======
+=======
+>>>>>>> a585345519799b93f414942a115d0499d5edb78b
+>>>>>>> Stashed changes
 #begin Musique_jeu_de_combat.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Musique_jeu_de_combat.wav
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+>>>>>>> 80b28620b33da2528a91881855b6a8298c9117ad
+=======
+>>>>>>> a585345519799b93f414942a115d0499d5edb78b
+>>>>>>> Stashed changes
 
 #begin play.png
 /importer:TextureImporter
