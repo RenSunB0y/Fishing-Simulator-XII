@@ -890,29 +890,59 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     if (anim_time == 0) 
                     {
-                        anim_time = 5;
+                        anim_time = 1;
+                        anim_frame = 1;
                     }
-
-                    if (animation_sur == "IA")
+                    if (anim_time < 5)
                     {
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(eyes_IA, new System.Numerics.Vector2(700, 10), Color.White);
-                        _spriteBatch.End();
+                        if (anim_frame >= 300 || anim_frame <= 0)
+                        {
+                            anim_time += 1;
+                        }
+                        if (anim_time == 1 || anim_time == 3)
+                        {
+                            anim_frame += 8;
+                        }
+                        else
+                        {
+                            anim_frame -= 8;
+                        }
+                        if (animation_sur == "IA")
+                        {
+                            _spriteBatch.Begin();
+                            _spriteBatch.Draw(eyes_joueur, new System.Numerics.Vector2(478, 200 + anim_frame), Color.White);
+                            _spriteBatch.End();
+                        }
+                        else
+                        {
+                            _spriteBatch.Begin();
+                            _spriteBatch.Draw(eyes_IA, new System.Numerics.Vector2(478, 200 + anim_frame), Color.White);
+                            _spriteBatch.End();
+                        }
                     }
                     else
                     {
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(eyes_joueur, new System.Numerics.Vector2(700, 10), Color.White);
-                        _spriteBatch.End();
-                    }
+                        anim_frame += 1;
+                        if (anim_frame > 17 || anim_frame < 0)
+                        {
+                            Random rand = new Random();
+                            animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
+                            animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
+                            anim_frame = 0;
+                            anim_time += 1;
+                        }
 
-                    if (anim_time == 5)
+                        _spriteBatch.Begin();
+                        _spriteBatch.Draw(list_animation[anim_frame / 6], animation_pos, Color.White);
+                        _spriteBatch.End();
+
+                    }
+                    if (anim_time == 11)
                     {
                         animation_en_cour = "non";
                         anim_time = 0;
                         anim_frame = 0;
                     }
-
                 }
                 else if (animation_en_cour == "spe_tank")
                 {
