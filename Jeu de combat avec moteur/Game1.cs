@@ -48,7 +48,7 @@ namespace Jeu_de_combat_avec_moteur
         public static string resolutionJoueur = " ";
         public static string resolutionIA = " ";
         public static string winner = "  ";
-        public static bool active_audio = false;
+        public static bool active_audio = true;
         public static bool control_slider = false;
         public static bool verif_hp = false;
 
@@ -106,6 +106,7 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D bg_selec_perso;
         Texture2D bg_start;
 
+        SoundEffectInstance start_song;
         SoundEffectInstance selection_song;
         SoundEffectInstance fight_song;
 
@@ -229,6 +230,7 @@ namespace Jeu_de_combat_avec_moteur
             // Permet de verifier qu'il y a bien un periferique audio branche
             try
             {
+                start_song = Content.Load<SoundEffect>("start_song").CreateInstance();
                 selection_song = Content.Load<SoundEffect>("select_song").CreateInstance();
                 fight_song = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
             }
@@ -268,7 +270,12 @@ namespace Jeu_de_combat_avec_moteur
                 // Code a executer si l'on se trouve dans l'ecran de menu
                 if (screen == "menu")
                 {
-
+                    if (!song_playing && active_audio)
+                    {
+                        start_song.Play();
+                        song_playing = true;
+                        start_song.IsLooped = true;
+                    }
                     // Permet de gerer le slider
                     if (slider_button_pos.X < mousePos.X + 1 && slider_button_pos.X + slider_button_taille.X > mousePos.X && slider_button_pos.Y < mousePos.Y + 1 && slider_button_pos.Y + slider_button_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
@@ -302,6 +309,8 @@ namespace Jeu_de_combat_avec_moteur
                     if (boutton_start_pos.X < mousePos.X + 1 && boutton_start_pos.X + boutton_start_taille.X > mousePos.X && boutton_start_pos.Y < mousePos.Y + 1 && boutton_start_pos.Y + boutton_start_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         screen = "selec";
+                        start_song.Stop();
+                        song_playing = false;
                     }
 
                 }
@@ -736,7 +745,8 @@ namespace Jeu_de_combat_avec_moteur
                 // Code a executer si l'on se trouve dans l'ecran de fin
                 else if (screen == "end")
                 {
-
+                    restart();
+                    screen = "menu";
                 }
             }
 
@@ -1107,6 +1117,43 @@ namespace Jeu_de_combat_avec_moteur
                     break;
             }
             classIA.hprestants = classIA.hp;
+        }
+
+        public static void restart()
+        {
+            classJoueur = new Entitees();
+            classIA = new Entitees();
+            tour = "joueur";
+            difficult = 5;
+            choixOpti = 0;
+            choixJoueur = 10;
+            choixClasseJoueur = 10;
+            choixIA = 0;
+            choixClasseIA = 10;
+            nomClasseJoueur = " ";
+            nomClasseIA = " ";
+            nManche = 0;
+            combatTermine = false;
+            joueurDef = false;
+            iADef = false;
+            joueurTankSpe = false;
+            joueurRangerSpe = false;
+            joueurRangerCharge = 1;
+            iaRangerCharge = 1;
+            iaTankSpe = false;
+            iaRangerSpe = false;
+            joueurDmgSpe = false;
+            iaDmgSpe = false;
+            resolutionJoueur = " ";
+            resolutionIA = " ";
+            winner = "  ";
+            active_audio = true;
+            control_slider = false;
+            verif_hp = false;
+            anim_frame = 0;
+            animation_en_cour = "non";
+            anim_time = 0;
+            animation_sur = "  ";
         }
 
     }

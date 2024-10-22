@@ -399,6 +399,12 @@
 /processorParam:TextureFormat=Color
 /build:Slider button.png
 
+#begin start_song.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:start_song.wav
+
 #begin tank droite.png
 /importer:TextureImporter
 /processor:TextureProcessor
