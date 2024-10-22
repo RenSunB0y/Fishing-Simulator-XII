@@ -90,18 +90,9 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D flash;
         Texture2D eyes_joueur;
         Texture2D eyes_IA;
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
 =======
 
         Texture2D def;
->>>>>>> Stashed changes
-<<<<<<< Updated upstream
-=======
->>>>>>> a585345519799b93f414942a115d0499d5edb78b
 >>>>>>> Stashed changes
 
         Texture2D boutton_att;
@@ -125,20 +116,7 @@ namespace Jeu_de_combat_avec_moteur
         Texture2D bg_selec_perso;
         Texture2D bg_start;
 
-<<<<<<< Updated upstream
         SoundEffectInstance start_song;
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        Texture2D nom_du_jeu;
-
-=======
-        SoundEffectInstance start_song;
->>>>>>> 80b28620b33da2528a91881855b6a8298c9117ad
-=======
-        SoundEffectInstance start_song;
->>>>>>> a585345519799b93f414942a115d0499d5edb78b
->>>>>>> Stashed changes
         SoundEffectInstance selection_song;
         SoundEffectInstance fight_song;
 
@@ -193,13 +171,9 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
         System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
         System.Numerics.Vector2 endTextPos = new System.Numerics.Vector2(250, 160);
-        System.Numerics.Vector2 namePos = new System.Numerics.Vector2(300, 200);
 
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         System.Numerics.Vector2 animation_origine_pos;
@@ -275,8 +249,6 @@ namespace Jeu_de_combat_avec_moteur
             bg_ecrand_de_fin = Content.Load<Texture2D>("bg ecran de fin");
             bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
             bg_start = Content.Load<Texture2D>("bg start");
-
-            nom_du_jeu = Content.Load<Texture2D>("name of the game");
 
             font = Content.Load<SpriteFont>("Font");
             endFont = Content.Load<SpriteFont>("EndFont");
@@ -1185,20 +1157,11 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     restart();
                     screen = "menu";
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
 =======
                 // Code à executer si l'on se trouve dans l'écran de fin
                 else if (screen == "end") 
                 { 
 
->>>>>>> Stashed changes
-<<<<<<< Updated upstream
-=======
->>>>>>> a585345519799b93f414942a115d0499d5edb78b
 >>>>>>> Stashed changes
                 }
             }
@@ -1221,18 +1184,10 @@ namespace Jeu_de_combat_avec_moteur
 <<<<<<< Updated upstream
                 _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
                 _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
-<<<<<<< HEAD
-                _spriteBatch.Draw(nom_du_jeu, namePos, Color.White);
-                //_spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
-=======
                 _spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
 =======
                 _spriteBatch.Draw(button_start, boutton_start_pos, Color.White);
                 
->>>>>>> Stashed changes
-<<<<<<< Updated upstream
-=======
->>>>>>> a585345519799b93f414942a115d0499d5edb78b
 >>>>>>> Stashed changes
                 _spriteBatch.End();
             }
@@ -1588,31 +1543,17 @@ namespace Jeu_de_combat_avec_moteur
                         _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
                         _spriteBatch.End();
                     }
-<<<<<<< Updated upstream
-                }
-
-=======
-=======
-<<<<<<< HEAD
                 }
 
 =======
                 }
 
-=======
->>>>>>> Stashed changes
-                }
 
 
 
 
 
 
-
->>>>>>> Stashed changes
-<<<<<<< Updated upstream
-=======
->>>>>>> a585345519799b93f414942a115d0499d5edb78b
 >>>>>>> Stashed changes
             }
             else if (screen == "end")
