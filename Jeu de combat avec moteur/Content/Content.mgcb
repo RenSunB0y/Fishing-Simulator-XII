@@ -260,6 +260,30 @@
 /processorParam:TextureFormat=Compressed
 /build:EndFont.spritefont
 
+#begin eyes IA.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:eyes IA.png
+
+#begin eyes joueur.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:eyes joueur.png
+
 #begin flash.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -303,6 +327,12 @@
 /processorParam:TextureFormat=Color
 /build:healer gauche.png
 
+#begin Musique_jeu_de_combat.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Musique_jeu_de_combat.wav
+
 #begin play.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -338,6 +368,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:ranger gauche.png
+
+#begin select_song.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:select_song.wav
 
 #begin Slider barre.png
 /importer:TextureImporter
