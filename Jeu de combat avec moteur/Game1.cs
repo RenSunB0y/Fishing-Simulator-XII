@@ -220,7 +220,7 @@ namespace Jeu_de_combat_avec_moteur
             slider_barre = Content.Load<Texture2D>("Slider barre");
             slider_button = Content.Load<Texture2D>("Slider button");
 
-            bg_combat = Content.Load<Texture2D>("bg combat");
+            bg_combat = Content.Load<Texture2D>("bg diff 10");
             bg_diff_10 = Content.Load<Texture2D>("bg diff 10");
             bg_ecrand_de_fin = Content.Load<Texture2D>("bg ecran de fin");
             bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
