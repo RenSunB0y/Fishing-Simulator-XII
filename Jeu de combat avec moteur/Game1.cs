@@ -520,7 +520,7 @@ namespace Jeu_de_combat_avec_moteur
                                     {
                                         joueurDmgSpe = true;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_damger";
+                                        animation_en_cour = "spe_damager";
                                         animation_sur = "IA";
                                     }
                                     else if (nomClasseJoueur == "Tank")
@@ -691,24 +691,25 @@ namespace Jeu_de_combat_avec_moteur
                                 }
                                 break;
                         }
+                        if (joueurDmgSpe)
+                        {
+                            classIA.hprestants -= classJoueur.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
+                            resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " points de vie";
+                            joueurDmgSpe = false;
+                        }
+
+                        if (iaDmgSpe)
+                        {
+                            classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
+                            resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "points de vie";
+                            iaDmgSpe = false;
+                        }
                         tour = "joueur";
                         verif_hp = true;
                     }
 
 
-                    if (joueurDmgSpe)
-                    {
-                        classIA.hprestants -= classJoueur.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                        resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " points de vie";
-                        joueurDmgSpe = false;
-                    }
 
-                    if (iaDmgSpe)
-                    {
-                        classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                        resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "points de vie";
-                        iaDmgSpe = false;
-                    }
                     // Verifie si un des deux joueurs n'a plus de HP
                     if (verif_hp)
                     {
@@ -834,7 +835,6 @@ namespace Jeu_de_combat_avec_moteur
                         animation_pos = animation_origine_pos;
                     }
                     anim_frame = 1000;
-                    anim_time = 0;
                 }
 
 
@@ -890,7 +890,7 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     if (anim_time == 0) 
                     {
-                        anim_time = 1;
+                        anim_time = 5;
                     }
 
                     if (animation_sur == "IA")
@@ -905,9 +905,7 @@ namespace Jeu_de_combat_avec_moteur
                         _spriteBatch.Draw(eyes_joueur, new System.Numerics.Vector2(700, 10), Color.White);
                         _spriteBatch.End();
                     }
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(eyes_joueur, new System.Numerics.Vector2(700, 10), Color.White);
-                    _spriteBatch.End();
+
                     if (anim_time == 5)
                     {
                         animation_en_cour = "non";
