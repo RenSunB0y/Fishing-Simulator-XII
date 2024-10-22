@@ -50,6 +50,7 @@ namespace Jeu_de_combat_avec_moteur
         public static string winner = "  ";
         public static bool active_audio = false;
         public static bool control_slider = false;
+        public static bool verif_hp = false;
 
         public static int anim_frame = 0;
         public static string animation_en_cour = "non";
@@ -200,8 +201,6 @@ namespace Jeu_de_combat_avec_moteur
             arrow = Content.Load<Texture2D>("arrow");
             flash = Content.Load<Texture2D>("flash");
 
-            boutton_att = Content.Load<Texture2D>("boutton_select");
-            attackTexture = Content.Load<Texture2D>("attack");
             healthTexture = Content.Load<Texture2D>("Coeur full");
             ui_fight = Content.Load<Texture2D>("ui fight");
 
@@ -370,8 +369,6 @@ namespace Jeu_de_combat_avec_moteur
                     {
                             //On initialise le tour : choix du joueur ET de l'ia pour faciliter les interactions.
                         //Reset global des variables
-                        resolutionJoueur = " ";
-                        resolutionIA = " ";
                         joueurDef = false; //reset de la parade 
                         classJoueur.hpPerdus = 0;
                         joueurDmgSpe = false;
@@ -481,6 +478,8 @@ namespace Jeu_de_combat_avec_moteur
                             {
                                 choixJoueur = compte + 1;
                                 nManche++;
+                                resolutionJoueur = " ";
+                                resolutionIA = " ";
                             }
                             compte++;
                         }
@@ -564,7 +563,7 @@ namespace Jeu_de_combat_avec_moteur
                                         else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
                                             classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser la parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " points de vie.";
+                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser\nla parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " points de vie.";
                                         }
                                     }
                                     else if (joueurRangerSpe)
@@ -590,8 +589,6 @@ namespace Jeu_de_combat_avec_moteur
                     // Tour de l'IA
                     else if (tour == "IA")
                     {
-                        
-                        
                         // Resolution pour l'ia
                         
                         switch (choixIA)
@@ -704,18 +701,28 @@ namespace Jeu_de_combat_avec_moteur
                             resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "points de vie";
                         }
                         tour = "joueur";
+                        verif_hp = true;
                     }
 
                     // Verifie si un des deux joueurs n'a plus de HP
-                    if (classJoueur.hprestants <= 0)
+                    if (verif_hp)
                     {
-                        winner = "Vous avez\n perdu la\n  vie...";
-                        screen = "end";
-                    }
-                    if (classIA.hprestants <= 0)
-                    {
-                        winner = "Vous avez\n   gagne !";
-                        screen = "end";
+                        if (classJoueur.hprestants <= 0 && classIA.hprestants <= 0)
+                        {
+                            winner = "  Egalite";
+                            screen = "end";
+                        }
+                        else if (classJoueur.hprestants <= 0)
+                        {
+                            winner = "Vous avez\n perdu la\n  vie...";
+                            screen = "end";
+                        }
+                        else if (classIA.hprestants <= 0)
+                        {
+                            winner = "Vous avez\n   gagne !";
+                            screen = "end";
+                        }
+                        verif_hp = false;
                     }
 
                 }
