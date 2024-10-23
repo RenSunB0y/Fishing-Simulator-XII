@@ -112,6 +112,8 @@ namespace Jeu_de_combat_avec_moteur
         SoundEffectInstance start_song;
         SoundEffectInstance selection_song;
         SoundEffectInstance fight_song;
+        SoundEffectInstance good_end_song;
+        SoundEffectInstance bad_end_song;
 
 
         List<Texture2D> list_boutton_texture_selec;
@@ -240,6 +242,8 @@ namespace Jeu_de_combat_avec_moteur
                 start_song = Content.Load<SoundEffect>("start_song").CreateInstance();
                 selection_song = Content.Load<SoundEffect>("select_song").CreateInstance();
                 fight_song = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
+                good_end_song = Content.Load<SoundEffect>("good_end").CreateInstance();
+                bad_end_song = Content.Load<SoundEffect>("bad_end").CreateInstance();
             }
             catch
             {
@@ -760,20 +764,37 @@ namespace Jeu_de_combat_avec_moteur
                 {
 
                     // Lance la musique
+
                     if (!song_playing && active_audio)
                     {
-                        start_song.Play();
-                        song_playing = true;
-                        start_song.IsLooped = true;
+                        if (winner == "Vous avez\n   gagne !")
+                        {
+                            good_end_song.Play();
+                            song_playing = true;
+                            good_end_song.IsLooped = true;
+                        }
+                        else
+                        {
+                            bad_end_song.Play();
+                            song_playing = true;
+                            bad_end_song.IsLooped = true;
+                        }
                     }
 
 
 
                     if (boutton_restart_pos.X < mousePos.X + 1 && boutton_restart_pos.X + boutton_restart_taille.X > mousePos.X && boutton_restart_pos.Y < mousePos.Y + 1 && boutton_restart_pos.Y + boutton_restart_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
+                        if (winner == "Vous avez\n   gagne !")
+                        {
+                            good_end_song.Stop();
+                        }
+                        else
+                        {
+                            bad_end_song.Stop();
+                        }
                         restart();
                         screen = "menu";
-                        start_song.Stop();
                         song_playing = false;
                     }
                 }

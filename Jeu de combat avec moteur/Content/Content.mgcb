@@ -37,6 +37,12 @@
 /processorParam:TextureFormat=Color
 /build:arrow.png
 
+#begin bad_end.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:bad_end.wav
+
 #begin bg choix persos.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -302,6 +308,12 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Font.spritefont
+
+#begin good_end.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:good_end.wav
 
 #begin healer droite.png
 /importer:TextureImporter
