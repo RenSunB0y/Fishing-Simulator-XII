@@ -339,6 +339,12 @@
 /processorParam:TextureFormat=Color
 /build:healer gauche.png
 
+#begin menu click.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:menu click.wav
+
 #begin Musique_jeu_de_combat.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

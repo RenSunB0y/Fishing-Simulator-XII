@@ -115,6 +115,7 @@ namespace Jeu_de_combat_avec_moteur
         SoundEffectInstance good_end_song;
         SoundEffectInstance bad_end_song;
 
+        SoundEffectInstance menu_click;
 
         List<Texture2D> list_boutton_texture_selec;
         List<System.Numerics.Vector2> list_boutton_pos_selec;
@@ -244,6 +245,14 @@ namespace Jeu_de_combat_avec_moteur
                 fight_song = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
                 good_end_song = Content.Load<SoundEffect>("good_end").CreateInstance();
                 bad_end_song = Content.Load<SoundEffect>("bad_end").CreateInstance();
+
+                menu_click = Content.Load<SoundEffect>("menu click").CreateInstance();
+
+                start_song.Volume = 0.5f;
+                selection_song.Volume = 0.5f;
+                fight_song.Volume = 0.5f;
+                good_end_song.Volume = 0.5f;
+                bad_end_song.Volume = 0.5f;
             }
             catch
             {
@@ -322,6 +331,7 @@ namespace Jeu_de_combat_avec_moteur
                         screen = "selec";
                         start_song.Stop();
                         song_playing = false;
+                        menu_click.Play();
                     }
 
                 }
@@ -374,6 +384,7 @@ namespace Jeu_de_combat_avec_moteur
                         song_playing = false;
                         // Fait choisir une classe aleatoirement par l'IA
                         ChoixIA();
+                        menu_click.Play();
                     }
 
                 }
@@ -503,6 +514,7 @@ namespace Jeu_de_combat_avec_moteur
                                 nManche++;
                                 resolutionJoueur = " ";
                                 resolutionIA = " ";
+                                menu_click.Play();
                             }
                             compte++;
                         }
@@ -785,6 +797,7 @@ namespace Jeu_de_combat_avec_moteur
 
                     if (boutton_restart_pos.X < mousePos.X + 1 && boutton_restart_pos.X + boutton_restart_taille.X > mousePos.X && boutton_restart_pos.Y < mousePos.Y + 1 && boutton_restart_pos.Y + boutton_restart_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
+                        menu_click.Play();
                         if (winner == "Vous avez\n   gagne !")
                         {
                             good_end_song.Stop();
