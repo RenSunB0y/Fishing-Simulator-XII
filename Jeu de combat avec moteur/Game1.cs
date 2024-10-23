@@ -135,8 +135,8 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 boutton_restart_taille = new System.Numerics.Vector2(600, 96);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
-        System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
-        System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(850, 48);
+        System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(63, 84);
+        System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(840, 72);
 
         System.Numerics.Vector2 boutton_start_pos = new System.Numerics.Vector2(405, 50);
         System.Numerics.Vector2 boutton_restart_pos = new System.Numerics.Vector2(240, 450);
