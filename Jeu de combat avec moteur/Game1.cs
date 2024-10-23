@@ -9,278 +9,258 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-// 104100
-// 295500
-// 5E8549
-// D4D29B
-
 namespace Jeu_de_combat_avec_moteur
 {
-
     public class Game1 : Game
     {
-        public static Entitees classJoueur = new Entitees();
-        public static Entitees classIA = new Entitees();
-
-        public static string tour = "joueur";
-
-
-        public static int difficult = 5;
-        public static int choixOpti = 0;
-        public static int choixJoueur = 10;
-        public static int choixClasseJoueur = 10;
-        public static int choixIA = 0;
-        public static int choixClasseIA = 10;
-        public static string nomClasseJoueur = " ";
-        public static string nomClasseIA = " ";
-        public static int nManche = 0;
-        public static bool combatTermine = false;
-        public static bool joueurDef = false;
-        public static bool iADef = false;
-        public static bool joueurTankSpe = false;
-        public static bool joueurRangerSpe = false;
-        public static int joueurRangerCharge = 1;
-        public static int iaRangerCharge = 1;
-        public static bool iaTankSpe = false;
-        public static bool iaRangerSpe = false;
-        public static bool joueurDmgSpe = false;
-        public static bool iaDmgSpe = false;
-        public static string resolutionJoueur = " ";
-        public static string resolutionIA = " ";
-        public static string winner = "  ";
-        public static bool active_audio = true;
-        public static bool control_slider = false;
-        public static bool verif_hp = false;
-
-        public static int anim_frame = 0;
-        public static string animation_en_cour = "non";
-        public static int anim_time = 0;
-        public static string animation_sur = "  ";
-        public static bool move_joueur = true;
-
-        bool song_playing = false;
-
-
-        Texture2D button_play;
-        Texture2D button_restart;
-        Texture2D classe1Texture;
-        Texture2D classe2Texture;
-        Texture2D classe3Texture;
-        Texture2D classe4Texture;
-
-        Texture2D sprite_classe1Texture;
-        Texture2D sprite_classe2Texture;
-        Texture2D sprite_classe3Texture;
-        Texture2D sprite_classe4Texture;
-        Texture2D sprite_classe1Texture_IA;
-        Texture2D sprite_classe2Texture_IA;
-        Texture2D sprite_classe3Texture_IA;
-        Texture2D sprite_classe4Texture_IA;
-
-        Texture2D hit_effect_1;
-        Texture2D hit_effect_2;
-        Texture2D hit_effect_3;
-        Texture2D def_effect;
-        Texture2D arrow;
-        Texture2D flash;
-        Texture2D eyes_joueur;
-        Texture2D eyes_IA;
-
-        Texture2D boutton_att;
-        Texture2D attackTexture;
-        Texture2D healthTexture;
-        Texture2D ui_fight;
-
-        Texture2D attack_boutton;
-        Texture2D defense_boutton;
-        Texture2D spe_boutton_heal;
-        Texture2D spe_boutton_dmg;
-        Texture2D spe_boutton_ranger;
-        Texture2D spe_boutton_tank;
-
-        Texture2D slider_button;
-        Texture2D slider_barre;
-
-        Texture2D bg_combat;
-        Texture2D bg_diff_10;
-        Texture2D bg_ecrand_de_fin;
-        Texture2D bg_selec_perso;
-        Texture2D bg_start;
-
-        Texture2D nom_du_jeu;
-
-        SoundEffectInstance start_song;
-        SoundEffectInstance selection_song;
-        SoundEffectInstance fight_song;
-        SoundEffectInstance good_end_song;
-        SoundEffectInstance bad_end_song;
-
-        SoundEffectInstance menu_click;
-        SoundEffectInstance hit_sound;
-        SoundEffectInstance tank_spe_sound;
-
-        List<Texture2D> list_boutton_texture_selec;
-        List<System.Numerics.Vector2> list_boutton_pos_selec;
-        List<Texture2D> list_sprite;
-        List<Texture2D> list_boutton_combat_texture;
-        List<System.Numerics.Vector2> list_boutton_combat_pos;
-        List<Texture2D> list_animation;
-
+        #region Déclaration des variables
 
         private SpriteFont font;
         private SpriteFont endFont;
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
 
         string screen = "menu";
 
+        public static Entities playerClass = new Entities();
+        public static Entities classIA = new Entities();
 
+        public static string turn = "joueur";
+        public static int difficult = 5;
+        public static int bestChoice = 0;
+        public static int playerChoice = 10;
+        public static int playerClassChoice = 10;
+        public static int choiceIA = 0;
+        public static int choiceClassIA = 10;
+        public static string playerClassName = " ";
+        public static string nameClassIA = " ";
+        public static int turnNumber = 0;
+        public static bool isFightOver = false;
+        public static bool isPlayerDefenseStance = false;
+        public static bool isIADefenseStance = false;
+        public static bool isPlayerTankSpellActive = false;
+        public static bool isPlayerRangerSpellActive = false;
+        public static int playerRangerCharge = 1;
+        public static int rangerChargeIA = 1;
+        public static bool isIATankSpellActive = false;
+        public static bool isIARangerSpellActive = false;
+        public static bool isPlayerDamagerSpellActive = false;
+        public static bool isIADamagerSpellActive = false;
+        public static string playerDisplayText = " ";
+        public static string iaDisplayText = " ";
+        public static string winner = "  ";
+        public static bool isAudioActive = true;
+        public static bool controlSlider = false;
+        public static bool hpCheck = false;
+        public static int animationFrame = 0;
+        public static string currentAnimation = "non";
+        public static int animationTime = 0;
+        public static string animationOn = "  ";
+        public static bool isPlayerMove = true;
+        bool isSongPlaying = false;
+        #endregion
 
-        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(258, 96);
-        System.Numerics.Vector2 boutton_restart_taille = new System.Numerics.Vector2(600, 96);
-        System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
-        System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
-        System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(63, 84);
-        System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(840, 72);
+        #region Assets
+        Texture2D playButton;
+        Texture2D restartButton;
+        Texture2D class1Texture;
+        Texture2D class2Texture;
+        Texture2D class3Texture;
+        Texture2D class4Texture;
+        Texture2D spriteClass1Texture;
+        Texture2D spriteClass2Texture;
+        Texture2D spriteClass3Texture;
+        Texture2D spriteClass4Texture;
+        Texture2D spriteClass1Texture_IA;
+        Texture2D spriteClass2Texture_IA;
+        Texture2D spriteClass3Texture_IA;
+        Texture2D spriteClass4Texture_IA;
+        Texture2D hitEffect1;
+        Texture2D hitEffect2;
+        Texture2D hitEffect3;
+        Texture2D defenseEffect;
+        Texture2D arrow;
+        Texture2D flash;
+        Texture2D playerEyes;
+        Texture2D iaEyes;
+        Texture2D buttonattackPowerack;
+        Texture2D attackPowerackTexture;
+        Texture2D healthTexture;
+        Texture2D fightUI;
+        Texture2D attackPowerackButton;
+        Texture2D defenseButton;
+        Texture2D healerSpecialButton;
+        Texture2D damagerSpecialButton;
+        Texture2D specialSpecialButton;
+        Texture2D tankSpecialButton;
+        Texture2D sliderButton;
+        Texture2D sliderSlider;
+        Texture2D backgroundFight;
+        Texture2D backgroundDiff10;
+        Texture2D backgroundEndScreen;
+        Texture2D backgroundCharacterSelection;
+        Texture2D backgroundStartScreen;
+        Texture2D gameName;
+        SoundEffectInstance songStartScreen;
+        SoundEffectInstance sonSelectionScreen;
+        SoundEffectInstance songFightScreen;
+        SoundEffectInstance songGoodEndingScreen;
+        SoundEffectInstance songBadEndingScreen;
+        SoundEffectInstance sfxMenuClick;
+        SoundEffectInstance sfxHit;
+        SoundEffectInstance sfxTankSpell;
 
-        System.Numerics.Vector2 boutton_start_pos = new System.Numerics.Vector2(405, 50);
-        System.Numerics.Vector2 boutton_restart_pos = new System.Numerics.Vector2(240, 450);
-        System.Numerics.Vector2 boutton1_pos = new System.Numerics.Vector2(40, 150);
-        System.Numerics.Vector2 boutton2_pos = new System.Numerics.Vector2(290, 150);
-        System.Numerics.Vector2 boutton3_pos = new System.Numerics.Vector2(540, 150);
-        System.Numerics.Vector2 boutton4_pos = new System.Numerics.Vector2(790, 150);
-        System.Numerics.Vector2 boutton_attack_pos = new System.Numerics.Vector2(40, 600);
-        System.Numerics.Vector2 boutton_defense_pos = new System.Numerics.Vector2(160, 600);
-        System.Numerics.Vector2 boutton_spe_pos = new System.Numerics.Vector2(280, 600);
+        List<Texture2D> listButtonTextureSelection;
+        List<System.Numerics.Vector2> listbuttonSizeSelection;
+        List<Texture2D> mistSprites;
+        List<Texture2D> listButtonFightTextures;
+        List<System.Numerics.Vector2> listButtonFightPosition;
+        List<Texture2D> listAnimations;
+        #endregion
 
-        System.Numerics.Vector2 slider_button_pos = new System.Numerics.Vector2(150, 515);
-        System.Numerics.Vector2 slider_barre_pos = new System.Numerics.Vector2(150, 520);
+        #region Positions
+        System.Numerics.Vector2 buttonStartSize = new System.Numerics.Vector2(258, 96);
+        System.Numerics.Vector2 buttonRestartSize = new System.Numerics.Vector2(600, 96);
+        System.Numerics.Vector2 buttonSize = new System.Numerics.Vector2(250, 250);
+        System.Numerics.Vector2 buttonActionSize = new System.Numerics.Vector2(100, 100);
+        System.Numerics.Vector2 buttonSliderSize = new System.Numerics.Vector2(63, 84);
+        System.Numerics.Vector2 sliderSliderSize = new System.Numerics.Vector2(840, 72);
+        System.Numerics.Vector2 buttonStartPosition = new System.Numerics.Vector2(405, 50);
+        System.Numerics.Vector2 buttonRestartPosition = new System.Numerics.Vector2(240, 450);
+        System.Numerics.Vector2 boutton1Position = new System.Numerics.Vector2(40, 150);
+        System.Numerics.Vector2 boutton2Position = new System.Numerics.Vector2(290, 150);
+        System.Numerics.Vector2 boutton3Position = new System.Numerics.Vector2(540, 150);
+        System.Numerics.Vector2 boutton4Position = new System.Numerics.Vector2(790, 150);
+        System.Numerics.Vector2 buttonattackPowerackPosition = new System.Numerics.Vector2(40, 600);
+        System.Numerics.Vector2 bouttonDefensePosition = new System.Numerics.Vector2(160, 600);
+        System.Numerics.Vector2 buttonSpellPosition = new System.Numerics.Vector2(280, 600);
+        System.Numerics.Vector2 sliderButtonPosition = new System.Numerics.Vector2(150, 515);
+        System.Numerics.Vector2 sliderSliderPosition = new System.Numerics.Vector2(150, 520);
+        System.Numerics.Vector2 spritePlayerPosition = new System.Numerics.Vector2(50, 175);
+        System.Numerics.Vector2 spriteIAPosition = new System.Numerics.Vector2(720, 175);
+        System.Numerics.Vector2 mousePosition = new System.Numerics.Vector2(0, 0);
+        System.Numerics.Vector2 textBox = new System.Numerics.Vector2(390, 605);
+        System.Numerics.Vector2 textBox2 = new System.Numerics.Vector2(390, 655);
+        System.Numerics.Vector2 endTextPosition = new System.Numerics.Vector2(250, 160);
+        System.Numerics.Vector2 namePosition = new System.Numerics.Vector2(300, 200);
+        System.Numerics.Vector2 animationOriginPosition;
+        System.Numerics.Vector2 animationPosition;
+        #endregion
 
-        System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50, 175);
-        System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720, 175);
-
-        System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
-
-        System.Numerics.Vector2 textbox = new System.Numerics.Vector2(390, 605);
-        System.Numerics.Vector2 textbox2 = new System.Numerics.Vector2(390, 655);
-        System.Numerics.Vector2 endTextPos = new System.Numerics.Vector2(250, 160);
-        System.Numerics.Vector2 namePos = new System.Numerics.Vector2(300, 200);
-
-        System.Numerics.Vector2 animation_origine_pos;
-        System.Numerics.Vector2 animation_pos;
-
-
+        /// <summary>
+        /// Logique principal du jeu
+        /// </summary>
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            _graphics.PreferredBackBufferWidth = 1080;  // set this value to the desired width of your window
-            _graphics.PreferredBackBufferHeight = 720;   // set this value to the desired height of your window
-            _graphics.ApplyChanges();
+            graphics.PreferredBackBufferWidth = 1080;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
         }
 
         protected override void Initialize()
         {
             base.Initialize();
-
         }
-
+        /// <summary>
+        /// Cette fonction permet de charger tout les assets qui vont etre utilise
+        /// </summary>
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // Charge tout les assets qui vont etre utilise
-            button_play = Content.Load<Texture2D>("play");
-            button_restart = Content.Load<Texture2D>("restart");
-            classe1Texture = Content.Load<Texture2D>("bouton Choix Damager");
-            classe2Texture = Content.Load<Texture2D>("bouton Choix Healer");
-            classe3Texture = Content.Load<Texture2D>("bouton Choix Tank");
-            classe4Texture = Content.Load<Texture2D>("bouton Choix Ranger");
-
-            sprite_classe1Texture = Content.Load<Texture2D>("damager gauche");
-            sprite_classe2Texture = Content.Load<Texture2D>("healer gauche");
-            sprite_classe3Texture = Content.Load<Texture2D>("tank gauche");
-            sprite_classe4Texture = Content.Load<Texture2D>("ranger gauche");
-            sprite_classe1Texture_IA = Content.Load<Texture2D>("damager droite");
-            sprite_classe2Texture_IA = Content.Load<Texture2D>("healer droite");
-            sprite_classe3Texture_IA = Content.Load<Texture2D>("tank droite");
-            sprite_classe4Texture_IA = Content.Load<Texture2D>("ranger droite");
-
-            hit_effect_1 = Content.Load<Texture2D>("effect hit 1");
-            hit_effect_2 = Content.Load<Texture2D>("effect hit 2");
-            hit_effect_3 = Content.Load<Texture2D>("effect hit 3");
-            def_effect = Content.Load<Texture2D>("anim def");
+            playButton = Content.Load<Texture2D>("play");
+            restartButton = Content.Load<Texture2D>("restart");
+            class1Texture = Content.Load<Texture2D>("bouton Choix Damager");
+            class2Texture = Content.Load<Texture2D>("bouton Choix Healer");
+            class3Texture = Content.Load<Texture2D>("bouton Choix Tank");
+            class4Texture = Content.Load<Texture2D>("bouton Choix Ranger");
+            spriteClass1Texture = Content.Load<Texture2D>("damager gauche");
+            spriteClass2Texture = Content.Load<Texture2D>("healer gauche");
+            spriteClass3Texture = Content.Load<Texture2D>("tank gauche");
+            spriteClass4Texture = Content.Load<Texture2D>("ranger gauche");
+            spriteClass1Texture_IA = Content.Load<Texture2D>("damager droite");
+            spriteClass2Texture_IA = Content.Load<Texture2D>("healer droite");
+            spriteClass3Texture_IA = Content.Load<Texture2D>("tank droite");
+            spriteClass4Texture_IA = Content.Load<Texture2D>("ranger droite");
+            hitEffect1 = Content.Load<Texture2D>("effect hit 1");
+            hitEffect2 = Content.Load<Texture2D>("effect hit 2");
+            hitEffect3 = Content.Load<Texture2D>("effect hit 3");
+            defenseEffect = Content.Load<Texture2D>("anim def");
             arrow = Content.Load<Texture2D>("arrow");
             flash = Content.Load<Texture2D>("flash");
-            eyes_joueur = Content.Load<Texture2D>("eyes joueur");
-            eyes_IA = Content.Load<Texture2D>("eyes IA");
-
+            playerEyes = Content.Load<Texture2D>("eyes joueur");
+            iaEyes = Content.Load<Texture2D>("eyes IA");
             healthTexture = Content.Load<Texture2D>("Coeur full");
-            ui_fight = Content.Load<Texture2D>("ui fight");
-
-            attack_boutton = Content.Load<Texture2D>("Boutton Atk gb");
-            defense_boutton = Content.Load<Texture2D>("btn def gb");
-            spe_boutton_heal = Content.Load<Texture2D>("btn spell gb");
-            spe_boutton_dmg = Content.Load<Texture2D>("btn spell gb");
-            spe_boutton_ranger = Content.Load<Texture2D>("btn spell gb");
-            spe_boutton_tank = Content.Load<Texture2D>("btn spell gb");
-
-            slider_barre = Content.Load<Texture2D>("Slider barre");
-            slider_button = Content.Load<Texture2D>("Slider button");
-
-            bg_combat = Content.Load<Texture2D>("bg diff 10");
-            bg_diff_10 = Content.Load<Texture2D>("bg diff 10");
-            bg_ecrand_de_fin = Content.Load<Texture2D>("bg ecran de fin");
-            bg_selec_perso = Content.Load<Texture2D>("bg choix persos");
-            bg_start = Content.Load<Texture2D>("bg start");
-
-            nom_du_jeu = Content.Load<Texture2D>("name of the game");
-
+            fightUI = Content.Load<Texture2D>("ui fight");
+            attackPowerackButton = Content.Load<Texture2D>("Boutton Atk gb");
+            defenseButton = Content.Load<Texture2D>("btn def gb");
+            healerSpecialButton = Content.Load<Texture2D>("btn spell gb");
+            damagerSpecialButton = Content.Load<Texture2D>("btn spell gb");
+            specialSpecialButton = Content.Load<Texture2D>("btn spell gb");
+            tankSpecialButton = Content.Load<Texture2D>("btn spell gb");
+            sliderSlider = Content.Load<Texture2D>("Slider barre");
+            sliderButton = Content.Load<Texture2D>("Slider button");
+            backgroundFight = Content.Load<Texture2D>("bg diff 10");
+            backgroundDiff10 = Content.Load<Texture2D>("bg diff 10");
+            backgroundEndScreen = Content.Load<Texture2D>("bg ecran de fin");
+            backgroundCharacterSelection = Content.Load<Texture2D>("bg choix persos");
+            backgroundStartScreen = Content.Load<Texture2D>("bg start");
+            gameName = Content.Load<Texture2D>("name of the game");
             font = Content.Load<SpriteFont>("Font");
             endFont = Content.Load<SpriteFont>("EndFont");
-            // Permet de verifier qu'il y a bien un periferique audio branche
+
+            // Permet de verifier qu'il y a bien un péripherique audio branche
             try
             {
-                start_song = Content.Load<SoundEffect>("start_song").CreateInstance();
-                selection_song = Content.Load<SoundEffect>("select_song").CreateInstance();
-                fight_song = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
-                good_end_song = Content.Load<SoundEffect>("good_end").CreateInstance();
-                bad_end_song = Content.Load<SoundEffect>("bad_end").CreateInstance();
+                songStartScreen = Content.Load<SoundEffect>("start_song").CreateInstance();
+                sonSelectionScreen = Content.Load<SoundEffect>("select_song").CreateInstance();
+                songFightScreen = Content.Load<SoundEffect>("Musique_jeu_de_combat").CreateInstance();
+                songGoodEndingScreen = Content.Load<SoundEffect>("good_end").CreateInstance();
+                songBadEndingScreen = Content.Load<SoundEffect>("bad_end").CreateInstance();
 
-                menu_click = Content.Load<SoundEffect>("menu click").CreateInstance();
-                hit_sound = Content.Load<SoundEffect>("hit_sound").CreateInstance();
-                tank_spe_sound = Content.Load<SoundEffect>("tank_spe_sound").CreateInstance();
+                sfxMenuClick = Content.Load<SoundEffect>("menu click").CreateInstance();
+                sfxHit = Content.Load<SoundEffect>("hit_sound").CreateInstance();
+                sfxTankSpell = Content.Load<SoundEffect>("tank_spe_sound").CreateInstance();
 
-                start_song.Volume = 0.5f;
-                selection_song.Volume = 0.5f;
-                fight_song.Volume = 0.5f;
-                good_end_song.Volume = 0.5f;
-                bad_end_song.Volume = 0.5f;
+                songStartScreen.Volume = 0.02f;
+                sonSelectionScreen.Volume = 0.02f;
+                songFightScreen.Volume = 0.02f;
+                songGoodEndingScreen.Volume = 0.02f;
+                songBadEndingScreen.Volume = 0.02f;
+                sfxMenuClick.Volume = 0.02f;
+                sfxHit.Volume = 0.02f;
+                sfxTankSpell.Volume = 0.02f;
             }
             catch
             {
-                active_audio = false;
+                isAudioActive = false;
             }
 
             // Met les textures et les position des boutton et des sprites dans des listes 
-            list_boutton_texture_selec = new List<Texture2D>() { classe1Texture, classe2Texture, classe3Texture, classe4Texture };
-            list_boutton_pos_selec = new List<System.Numerics.Vector2>() { boutton1_pos, boutton2_pos, boutton3_pos, boutton4_pos };
-            list_sprite = new List<Texture2D>() { sprite_classe1Texture, sprite_classe2Texture, sprite_classe3Texture, sprite_classe4Texture, sprite_classe1Texture_IA, sprite_classe2Texture_IA, sprite_classe3Texture_IA, sprite_classe4Texture_IA };
+            listButtonTextureSelection = new List<Texture2D>() { class1Texture, class2Texture, class3Texture, class4Texture };
+            listbuttonSizeSelection = new List<System.Numerics.Vector2>() { boutton1Position, boutton2Position, boutton3Position, boutton4Position };
+            mistSprites = new List<Texture2D>() { spriteClass1Texture, spriteClass2Texture, spriteClass3Texture, spriteClass4Texture, spriteClass1Texture_IA, spriteClass2Texture_IA, spriteClass3Texture_IA, spriteClass4Texture_IA };
 
-            list_boutton_combat_texture = new List<Texture2D>() { attack_boutton, defense_boutton, spe_boutton_dmg, spe_boutton_heal, spe_boutton_tank, spe_boutton_ranger };
-            list_boutton_combat_pos = new List<System.Numerics.Vector2>() { boutton_attack_pos, boutton_defense_pos, boutton_spe_pos };
+            listButtonFightTextures = new List<Texture2D>() { attackPowerackButton, defenseButton, damagerSpecialButton, healerSpecialButton, tankSpecialButton, specialSpecialButton };
+            listButtonFightPosition = new List<System.Numerics.Vector2>() { buttonattackPowerackPosition, bouttonDefensePosition, buttonSpellPosition };
 
-            list_animation = new List<Texture2D>() { hit_effect_1, hit_effect_2, hit_effect_3 };
+            listAnimations = new List<Texture2D>() { hitEffect1, hitEffect2, hitEffect3 };
 
 
         }
 
-        // Debut de la fonction Update qui se repete en boucle (c'est ici qu'est geree tout la partie fonctionnnel du jeu) 
+        /// <summary>
+        /// Debut de la fonction Update qui se repete en boucle
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
 
-            if (animation_en_cour == "non")
+            if (currentAnimation == "non")
             {
                 // Permet d'avoir en memoire tout les input fait par le joueur
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
@@ -288,54 +268,54 @@ namespace Jeu_de_combat_avec_moteur
                     Exit();
                 var kstate = Keyboard.GetState();
                 MouseState mouseState = Microsoft.Xna.Framework.Input.Mouse.GetState();
-                mousePos.X = mouseState.X;
-                mousePos.Y = mouseState.Y;
+                mousePosition.X = mouseState.X;
+                mousePosition.Y = mouseState.Y;
 
                 // Code a executer si l'on se trouve dans l'ecran de menu
                 if (screen == "menu")
                 {
-                    if (!song_playing && active_audio)
+                    if (!isSongPlaying && isAudioActive)
                     {
-                        start_song.Play();
-                        song_playing = true;
-                        start_song.IsLooped = true;
+                        songStartScreen.Play();
+                        isSongPlaying = true;
+                        songStartScreen.IsLooped = true;
                     }
                     // Permet de gerer le slider
-                    if (slider_button_pos.X < mousePos.X + 1 && slider_button_pos.X + slider_button_taille.X > mousePos.X && slider_button_pos.Y < mousePos.Y + 1 && slider_button_pos.Y + slider_button_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                    if (sliderButtonPosition.X < mousePosition.X + 1 && sliderButtonPosition.X + buttonSliderSize.X > mousePosition.X && sliderButtonPosition.Y < mousePosition.Y + 1 && sliderButtonPosition.Y + buttonSliderSize.Y > mousePosition.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        control_slider = true;
+                        controlSlider = true;
                     }
                     if (mouseState.LeftButton == ButtonState.Released)
                     {
-                        control_slider = false;
+                        controlSlider = false;
                     }
-                    if (control_slider)
+                    if (controlSlider)
                     {
-                        if (mousePos.X - 50 < slider_barre_pos.X)
+                        if (mousePosition.X - 50 < sliderSliderPosition.X)
                         {
-                            slider_button_pos.X = slider_barre_pos.X;
+                            sliderButtonPosition.X = sliderSliderPosition.X;
                         }
-                        else if (mousePos.X - 50 > slider_barre_pos.X + slider_barre_taille.X - slider_button_taille.X)
+                        else if (mousePosition.X - 50 > sliderSliderPosition.X + sliderSliderSize.X - buttonSliderSize.X)
                         {
-                            slider_button_pos.X = slider_barre_pos.X + slider_barre_taille.X - slider_button_taille.X;
+                            sliderButtonPosition.X = sliderSliderPosition.X + sliderSliderSize.X - buttonSliderSize.X;
                         }
                         else
                         {
-                            slider_button_pos.X = mousePos.X - 50;
+                            sliderButtonPosition.X = mousePosition.X - 50;
                         }
                     }
                     // Change la difficultee en fonction du slider
-                    difficult = (Convert.ToInt32(slider_button_pos.X) - 100) / 73;
+                    difficult = (Convert.ToInt32(sliderButtonPosition.X) - 100) / 73;
 
 
 
                     // Permet de passe a l'ecran de selection de personnage si le boutton start est appuye
-                    if (boutton_start_pos.X < mousePos.X + 1 && boutton_start_pos.X + boutton_start_taille.X > mousePos.X && boutton_start_pos.Y < mousePos.Y + 1 && boutton_start_pos.Y + boutton_start_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                    if (buttonStartPosition.X < mousePosition.X + 1 && buttonStartPosition.X + buttonStartSize.X > mousePosition.X && buttonStartPosition.Y < mousePosition.Y + 1 && buttonStartPosition.Y + buttonStartSize.Y > mousePosition.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         screen = "selec";
-                        start_song.Stop();
-                        song_playing = false;
-                        menu_click.Play();
+                        songStartScreen.Stop();
+                        isSongPlaying = false;
+                        sfxMenuClick.Play();
                     }
 
                 }
@@ -343,51 +323,51 @@ namespace Jeu_de_combat_avec_moteur
                 else if (screen == "selec")
                 {
                     // Lance la musique
-                    if (!song_playing && active_audio)
+                    if (!isSongPlaying && isAudioActive)
                     {
-                        selection_song.Play();
-                        song_playing = true;
-                        selection_song.IsLooped = true;
+                        sonSelectionScreen.Play();
+                        isSongPlaying = true;
+                        sonSelectionScreen.IsLooped = true;
                     }
-                    // Verifie si on appuie sur un boutton de selection de classe
+                    // Verifie si on appuie sur un boutton de selection de class
                     int compte = 0;
-                    foreach (var b_pos in list_boutton_pos_selec)
+                    foreach (var bPosition in listbuttonSizeSelection)
                     {
-                        if (b_pos.X < mousePos.X + 1 && b_pos.X + boutton_taille.X > mousePos.X && b_pos.Y < mousePos.Y + 1 && b_pos.Y + boutton_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                        if (bPosition.X < mousePosition.X + 1 && bPosition.X + buttonSize.X > mousePosition.X && bPosition.Y < mousePosition.Y + 1 && bPosition.Y + buttonSize.Y > mousePosition.Y && mouseState.LeftButton == ButtonState.Pressed)
                         {
-                            choixClasseJoueur = compte;
+                            playerClassChoice = compte;
                         }
                         compte++;
                     }
 
-                    // Assigne le choix du joueur a une classe specifique
-                    if (choixClasseJoueur != 10)
+                    // Assigne le choix du joueur a une class specifique
+                    if (playerClassChoice != 10)
                     {
-                        switch (choixClasseJoueur)
+                        switch (playerClassChoice)
                         {
                             case 0:
-                                classJoueur = new Entitees.Damager();
-                                nomClasseJoueur = "Damager";
+                                playerClass = new Entities.Damager();
+                                playerClassName = "Damager";
                                 break;
                             case 1:
-                                nomClasseJoueur = "Healer";
-                                classJoueur = new Entitees.Healer();
+                                playerClassName = "Healer";
+                                playerClass = new Entities.Healer();
                                 break;
                             case 2:
-                                nomClasseJoueur = "Tank";
-                                classJoueur = new Entitees.Tank();
+                                playerClassName = "Tank";
+                                playerClass = new Entities.Tank();
                                 break;
                             case 3:
-                                nomClasseJoueur = "Ranger";
-                                classJoueur = new Entitees.Ranger();
+                                playerClassName = "Ranger";
+                                playerClass = new Entities.Ranger();
                                 break;
                         }
-                        classJoueur.hprestants = classJoueur.hp;
+                        playerClass.hpCurrent = playerClass.hp;
                         screen = "game";
-                        selection_song.Stop();
-                        song_playing = false;
-                        // Fait choisir une classe aleatoirement par l'IA
-                        ChoixIA();
+                        sonSelectionScreen.Stop();
+                        isSongPlaying = false;
+                        // Fait choisir une class aleatoirement par l'IA
+                        IAChoice();
                     }
 
                 }
@@ -395,377 +375,377 @@ namespace Jeu_de_combat_avec_moteur
                 else if (screen == "game")
                 {
                     // Lance la musique
-                    if (!song_playing && active_audio)
+                    if (!isSongPlaying && isAudioActive)
                     {
-                        fight_song.Play();
-                        song_playing = true;
-                        fight_song.IsLooped = true;
+                        songFightScreen.Play();
+                        isSongPlaying = true;
+                        songFightScreen.IsLooped = true;
                     }
-                    // Tour du joueur
-                    if (tour == "joueur")
+                    // turn du joueur
+                    if (turn == "joueur")
                     {
-                            //On initialise le tour : choix du joueur ET de l'ia pour faciliter les interactions.
+                            //On initialise le turn : choix du joueur ET de l'ia pour faciliter les interactions.
                         //Reset global des variables
-                        joueurDef = false; //reset de la parade 
-                        classJoueur.hpPerdus = 0;
-                        joueurDmgSpe = false;
+                        isPlayerDefenseStance = false; //reset de la parade 
+                        playerClass.hpLost = 0;
+                        isPlayerDamagerSpellActive = false;
 
-                        iADef = false; //reset de la parade
-                        choixIA = 0;
-                        classIA.hpPerdus = 0;
-                        iaDmgSpe = false;
+                        isIADefenseStance = false; //reset de la parade
+                        choiceIA = 0;
+                        classIA.hpLost = 0;
+                        isIADamagerSpellActive = false;
 
-                        if (iaTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
+                        if (isIATankSpellActive) //on reset l'etat et l'attackPower si le tank a utilise son spell
                         {
-                            classIA.att--;
-                            iaTankSpe = false;
+                            classIA.attackPower--;
+                            isIATankSpellActive = false;
                         }
 
                         // Choisi si le choix de l'IA sera optimisee en fonction de la difficutle
                         Random rand = new Random();
-                        choixOpti = rand.Next(difficult, 15);
+                        bestChoice = rand.Next(difficult, 15);
 
-                        // L'IA choisi son action en fonction de sa classe et de si son choix est optimise
-                        if (nomClasseIA == "Damager")
+                        // L'IA choisi son action en fonction de sa class et de si son choix est optimise
+                        if (nameClassIA == "Damager")
                         {
-                            if (choixOpti >= 10)
+                            if (bestChoice >= 10)
                             {
-                                choixIA = 1;
+                                choiceIA = 1;
                             }
                             else
                             {
-                                choixIA = rand.Next(1, 4);
+                                choiceIA = rand.Next(1, 4);
                             }
                         }
-                        else if (nomClasseIA == "Healer")
+                        else if (nameClassIA == "Healer")
                         {
-                            if (choixOpti >= 10)
+                            if (bestChoice >= 10)
                             {
-                                if (classIA.hprestants <= 2)
+                                if (classIA.hpCurrent <= 2)
                                 {
-                                    choixIA = 3;
+                                    choiceIA = 3;
                                 }
                                 else
                                 {
-                                    choixIA = 1;
+                                    choiceIA = 1;
                                 }
                             }
                             else
                             {
-                                choixIA = rand.Next(1, 4);
+                                choiceIA = rand.Next(1, 4);
                             }
                         }
-                        else if (nomClasseIA == "Tank")
+                        else if (nameClassIA == "Tank")
                         {
-                            if (choixOpti >= 10)
+                            if (bestChoice >= 10)
                             {
-                                if (classIA.hprestants >= 2)
+                                if (classIA.hpCurrent >= 2)
                                 {
-                                    choixIA = 3;
+                                    choiceIA = 3;
                                 }
                                 else
                                 {
-                                    choixIA = 1;
+                                    choiceIA = 1;
                                 }
                             }
                             else
                             {
-                                choixIA = rand.Next(1, 4);
+                                choiceIA = rand.Next(1, 4);
                             }
                         }
-                        else if (nomClasseIA == "Ranger")
+                        else if (nameClassIA == "Ranger")
                         {
-                            if (choixOpti >= 10)
+                            if (bestChoice >= 10)
                             {
-                                if (classIA.hprestants >= 2)
+                                if (classIA.hpCurrent >= 2)
                                 {
-                                    choixIA = 3;
+                                    choiceIA = 3;
                                 }
-                                else if (iaRangerCharge == 2)
+                                else if (rangerChargeIA == 2)
                                 {
-                                    choixIA = 3;
+                                    choiceIA = 3;
                                 }
                                 else
                                 {
-                                    choixIA = 1;
+                                    choiceIA = 1;
                                 }
                             }
                             else
                             {
-                                choixIA = rand.Next(1, 4);
+                                choiceIA = rand.Next(1, 4);
                             }
                         }
 
-                        if (choixIA == 2)
+                        if (choiceIA == 2)
                         {
-                            iADef = true;
+                            isIADefenseStance = true;
                         }
 
-                        if (joueurTankSpe) //on reset l'etat et l'att si le tank a utilise son spell
+                        if (isPlayerTankSpellActive) //on reset l'etat et l'attackPower si le tank a utilise son spell
                         {
-                            classJoueur.att--;
-                            joueurTankSpe = false;
+                            playerClass.attackPower--;
+                            isPlayerTankSpellActive = false;
                         }
 
                         //Verifie si un boutton d'action est appuye
                         int compte = 0;
-                        foreach (var b_pos in list_boutton_combat_pos)
+                        foreach (var bPosition in listButtonFightPosition)
                         {
-                            if (b_pos.X < mousePos.X + 1 && b_pos.X + boutton_action_taille.X > mousePos.X && b_pos.Y < mousePos.Y + 1 && b_pos.Y + boutton_action_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                            if (bPosition.X < mousePosition.X + 1 && bPosition.X + buttonActionSize.X > mousePosition.X && bPosition.Y < mousePosition.Y + 1 && bPosition.Y + buttonActionSize.Y > mousePosition.Y && mouseState.LeftButton == ButtonState.Pressed)
                             {
-                                choixJoueur = compte + 1;
-                                nManche++;
-                                resolutionJoueur = " ";
-                                resolutionIA = " ";
+                                playerChoice = compte + 1;
+                                turnNumber++;
+                                playerDisplayText = " ";
+                                iaDisplayText = " ";
                             }
                             compte++;
                         }
-                        if (choixJoueur != 10)
+                        if (playerChoice != 10)
                         {
-                            switch (choixJoueur)
+                            switch (playerChoice)
                             {
                                 case 1:
-                                    if (!iADef) //on verifie si l'ia se defends ///C'est al qu'il faut changer cette histoire de block
+                                    if (!isIADefenseStance) //on verifie si l'ia se defends ///C'est al qu'il faut changer cette histoire de block
                                     {
-                                        classIA.hprestants -= classJoueur.att;
-                                        classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionJoueur = "Votre coup a touche !\nL'adversaire a perdu " + classJoueur.att.ToString() + " points de vie";
+                                        classIA.hpCurrent -= playerClass.attackPower;
+                                        classIA.hpLost = playerClass.attackPower; //on stock l'info pour le renvoi (on reset a chaque turn)
+                                        playerDisplayText = "Votre coup a touche !\nL'adversaire a perdu " + playerClass.attackPower.ToString() + " points de vie";
                                     }
                                     else
                                     {
-                                        resolutionJoueur = "D'un geste habile, votre adversaire pare le coup,\nil ne perds pas de points de vie";
+                                        playerDisplayText = "D'un geste habile, votre adversaire pare le coup,\nil ne perds pas de points de vie";
                                     }
                                     // Lance l'annimation
-                                    animation_en_cour = "damage";
-                                    animation_sur = "IA";
+                                    currentAnimation = "damage";
+                                    animationOn = "IA";
                                     break;
                                 case 2:
-                                    joueurDef = true;
-                                    resolutionJoueur = "Vous tentez de bloquer !";
+                                    isPlayerDefenseStance = true;
+                                    playerDisplayText = "Vous tentez de bloquer !";
                                     // Lance l'annimation
-                                    animation_en_cour = "def";
-                                    animation_sur = "joueur";
+                                    currentAnimation = "def";
+                                    animationOn = "joueur";
                                     break;
 
                                 case 3:
-                                    classJoueur.speAtt();
+                                    playerClass.SpecialAttack();
 
-                                    if (nomClasseJoueur == "Damager")
+                                    if (playerClassName == "Damager")
                                     {
-                                        joueurDmgSpe = true;
+                                        isPlayerDamagerSpellActive = true;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_damager";
-                                        animation_sur = "IA";
+                                        currentAnimation = "spe_damager";
+                                        animationOn = "IA";
                                     }
-                                    else if (nomClasseJoueur == "Tank")
+                                    else if (playerClassName == "Tank")
                                     {
-                                        joueurTankSpe = true;
+                                        isPlayerTankSpellActive = true;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_tank";
-                                        animation_sur = "IA";
+                                        currentAnimation = "spe_tank";
+                                        animationOn = "IA";
                                     }
-                                    else if (nomClasseJoueur == "Ranger")
+                                    else if (playerClassName == "Ranger")
                                     {
-                                        if (joueurRangerCharge >= 2)
+                                        if (playerRangerCharge >= 2)
                                         {
-                                            joueurRangerSpe = true;
-                                            joueurRangerCharge = 1;
+                                            isPlayerRangerSpellActive = true;
+                                            playerRangerCharge = 1;
                                             // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_2";
-                                            animation_sur = "IA";
+                                            currentAnimation = "spe_ranger_2";
+                                            animationOn = "IA";
                                         }
                                         else
                                         {
-                                            joueurRangerCharge += 1;
-                                            resolutionJoueur = "Vous prenez le temps d'ajuster votre fleche...";
+                                            playerRangerCharge += 1;
+                                            playerDisplayText = "Vous prenez le temps d'ajuster votre fleche...";
                                             // Lance l'annimation
-                                            animation_en_cour = "spe_ranger_1";
-                                            animation_sur = "joueur";
+                                            currentAnimation = "spe_ranger_1";
+                                            animationOn = "joueur";
                                         }
                                     }
-                                    else if (nomClasseJoueur == "Healer")
+                                    else if (playerClassName == "Healer")
                                     {
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_healer";
-                                        animation_sur = "joueur";
+                                        currentAnimation = "spe_healer";
+                                        animationOn = "joueur";
                                     }
-                                    if (joueurTankSpe) //si le joueur est tank ET a lance son att spe, on lance une attaque apres le buff stat
+                                    if (isPlayerTankSpellActive) //si le joueur est tank ET a lance son attackPower spe, on lance une attackPoweraque apres le buff stat
                                     {
-                                        if (!iADef) //on verifie si l'ia ne se defends pas
+                                        if (!isIADefenseStance) //on verifie si l'ia ne se defends pas
                                         {
-                                            classIA.hprestants -= classJoueur.att;
-                                            classIA.hpPerdus = classJoueur.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                            resolutionJoueur = "Vous sacrifiez 1 point de vie puis vous vous jetez\nsur votre adversaire qui perd " + classJoueur.att.ToString() + " points de vie";
+                                            classIA.hpCurrent -= playerClass.attackPower;
+                                            classIA.hpLost = playerClass.attackPower; //on stock l'info pour le renvoi (on reset a chaque turn)
+                                            playerDisplayText = "Vous sacrifiez 1 point de vie puis vous vous jetez\nsur votre adversaire qui perd " + playerClass.attackPower.ToString() + " points de vie";
                                         }
-                                        else if (joueurTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
+                                        else if (isPlayerTankSpellActive) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                         {
-                                            classIA.hprestants -= classJoueur.att - 1;
-                                            resolutionJoueur = "En sacrifiant 1 point de vie, vous reussissez a traverser\nla parade de votre adversaire !\nIl a perdu " + (classJoueur.att - 1).ToString() + " points de vie.";
+                                            classIA.hpCurrent -= playerClass.attackPower - 1;
+                                            playerDisplayText = "En sacrifiant 1 point de vie, vous reussissez a traverser\nla parade de votre adversaire !\nIl a perdu " + (playerClass.attackPower - 1).ToString() + " points de vie.";
                                         }
                                     }
-                                    else if (joueurRangerSpe)
+                                    else if (isPlayerRangerSpellActive)
                                     {
-                                        if (!iADef) //on verifie si l'ia ne se defends pas
+                                        if (!isIADefenseStance) //on verifie si l'ia ne se defends pas
                                         {
-                                            classIA.hprestants -= 5;
-                                            classIA.hpPerdus = 5;
-                                            resolutionJoueur = "Votre adversaire prend votre fleche en pleine poirtine,\nil perd 5 points de vie";
+                                            classIA.hpCurrent -= 5;
+                                            classIA.hpLost = 5;
+                                            playerDisplayText = "Votre adversaire prend votre fleche en pleine poirtine,\nil perd 5 points de vie";
                                         }
                                         else
                                         {
-                                            classIA.hprestants -= 5;
-                                            resolutionJoueur = "Vous tirez votre fleche, votre adversaire tente de la devier,\nsans succes, il perd 5 points de vie";
+                                            classIA.hpCurrent -= 5;
+                                            playerDisplayText = "Vous tirez votre fleche, votre adversaire tente\nde la devier,sans succes, il perd 5 points de vie";
                                         }
                                     }
                                     break;
                             }
-                            choixJoueur = 10;
-                            tour = "IA";
+                            playerChoice = 10;
+                            turn = "IA";
                         }
                     }
-                    // Tour de l'IA
-                    else if (tour == "IA")
+                    // turn de l'IA
+                    else if (turn == "IA")
                     {
                         // Resolution pour l'ia
                         
-                        switch (choixIA)
+                        switch (choiceIA)
                         {
                             case 1:
-                                if (!joueurDef) //on verifie si le joueur se defends
+                                if (!isPlayerDefenseStance) //on verifie si le joueur se defends
                                 {
-                                    classJoueur.hprestants -= classIA.att;
-                                    classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                    resolutionIA = "L'adversaire vous a assene un coup !\nVous perdez " + classIA.att.ToString() + " points de vie...";
+                                    playerClass.hpCurrent -= classIA.attackPower;
+                                    playerClass.hpLost = classIA.attackPower; //on stock l'info pour le renvoi (on reset a chaque turn)
+                                    iaDisplayText = "L'adversaire vous a assene un coup !\nVous perdez " + classIA.attackPower.ToString() + " points de vie...";
                                 }
                                 else
                                 {
-                                    resolutionIA = "Vous parez le coup grace a une roulade bien timee";
+                                    iaDisplayText = "Vous parez le coup grace a une roulade bien timee";
                                 }
                                 // Lance l'annimation
-                                animation_en_cour = "damage";
-                                animation_sur = "joueur";
+                                currentAnimation = "damage";
+                                animationOn = "joueur";
                                 break;
 
                             case 2:
-                                resolutionIA = "L'adversaire tente de se defendre...";
+                                iaDisplayText = "L'adversaire tente de se defendre...";
                                 // Lance l'annimation
-                                animation_en_cour = "def";
-                                animation_sur = "IA";
+                                currentAnimation = "def";
+                                animationOn = "IA";
                                 break;
 
                             case 3:
-                                classIA.speAtt();
-                                if (nomClasseIA == "Damager")
+                                classIA.SpecialAttack();
+                                if (nameClassIA == "Damager")
                                 {
-                                    iaDmgSpe = true;
+                                    isIADamagerSpellActive = true;
                                     // Lance l'annimation
-                                    animation_en_cour = "spe_damager";
-                                    animation_sur = "joueur";
+                                    currentAnimation = "spe_damager";
+                                    animationOn = "joueur";
                                 }
-                                if (nomClasseIA == "Tank")
+                                if (nameClassIA == "Tank")
                                 {
-                                    iaTankSpe = true;
+                                    isIATankSpellActive = true;
                                     // Lance l'annimation
-                                    animation_en_cour = "spe_tank";
-                                    animation_sur = "joueur";
+                                    currentAnimation = "spe_tank";
+                                    animationOn = "joueur";
                                 }
-                                else if (nomClasseIA == "Ranger")
+                                else if (nameClassIA == "Ranger")
                                 {
-                                    if (iaRangerCharge >= 2)
+                                    if (rangerChargeIA >= 2)
                                     {
-                                        iaRangerSpe = true;
-                                        iaRangerCharge = 1;
+                                        isIARangerSpellActive = true;
+                                        rangerChargeIA = 1;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_2";
-                                        animation_sur = "joueur";
+                                        currentAnimation = "spe_ranger_2";
+                                        animationOn = "joueur";
                                     }
                                     else
                                     {
-                                        iaRangerCharge += 1;
+                                        rangerChargeIA += 1;
                                         // Lance l'annimation
-                                        animation_en_cour = "spe_ranger_1";
-                                        animation_sur = "IA";
-                                        resolutionIA = "Votre adversaire prends le temps d'ajuster son tir...";
+                                        currentAnimation = "spe_ranger_1";
+                                        animationOn = "IA";
+                                        iaDisplayText = "Votre adversaire prends le temps d'ajuster son tir...";
                                     }
                                 }
-                                else if (nomClasseIA == "Healer")
+                                else if (nameClassIA == "Healer")
                                 {
                                     // Lance l'annimation
-                                    animation_en_cour = "spe_healer";
-                                    animation_sur = "IA";
+                                    currentAnimation = "spe_healer";
+                                    animationOn = "IA";
                                 }
                                 
-                                if (iaTankSpe)
+                                if (isIATankSpellActive)
                                 {
-                                    if (!joueurDef) //on verifie si le joueur se defends
+                                    if (!isPlayerDefenseStance) //on verifie si le joueur se defends
                                     {
-                                        classJoueur.hprestants -= classIA.att;
-                                        classJoueur.hpPerdus = classIA.att; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "L'adversaire vous a assene un coup puissant ! Grace a son sacrifice de 1 point de vie,\nvous perdez " + classIA.att.ToString() + " points de vie...";
+                                        playerClass.hpCurrent -= classIA.attackPower;
+                                        playerClass.hpLost = classIA.attackPower; //on stock l'info pour le renvoi (on reset a chaque turn)
+                                        iaDisplayText = "L'adversaire vous a assene un coup puissant !\nGrace a son sacrifice de 1 point de vie,\nvous perdez " + classIA.attackPower.ToString() + " points de vie...";
                                     }
-                                    else if (iaTankSpe) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
+                                    else if (isIATankSpellActive) //on verifie si le spell du tank est actif, si oui on ne pare qu'1 point de degat
                                     {
-                                        classJoueur.hprestants -= classIA.att - 1;
-                                        resolutionIA = "Votre adversaire enrage et perd 1 point de vie, grace a cela,\nil traverse votre parade et vous perdez " + classIA.att.ToString() + " points de vie...";
+                                        playerClass.hpCurrent -= classIA.attackPower - 1;
+                                        iaDisplayText = "Votre adversaire enrage et perd 1 point de vie, grace a cela,\nil traverse votre parade et vous perdez " + classIA.attackPower.ToString() + " points de vie...";
                                     }
                                 }
-                                else if (iaRangerSpe)
+                                else if (isIARangerSpellActive)
                                 {
-                                    if (!joueurDef) //on verifie si l'ia ne se defends pas
+                                    if (!isPlayerDefenseStance) //on verifie si l'ia ne se defends pas
                                     {
-                                        classJoueur.hprestants -= 5;
-                                        classJoueur.hpPerdus = 5; //on stock l'info pour le renvoi (on reset a chaque tour)
-                                        resolutionIA = "La fleche de votre adversaire vous traverse de part en part, vous perdez 5 points de vie";
+                                        playerClass.hpCurrent -= 5;
+                                        playerClass.hpLost = 5; //on stock l'info pour le renvoi (on reset a chaque turn)
+                                        iaDisplayText = "La fleche de votre adversaire\nvous traverse de part en part,\nvous perdez 5 points de vie";
                                     }
                                     else
                                     {
-                                        classJoueur.hprestants -= 5;
-                                        resolutionIA = "Vous tentez de parer la fleche tiree par votre adversaire, malheureusement,\nelle est trop puissante et dechire votre armure, vous perdez 5 points de vie";
+                                        playerClass.hpCurrent -= 5;
+                                        iaDisplayText = "Vous tentez de parer la fleche tiree par votre adversaire, malheureusement,\nelle est trop puissante et dechire votre armure, vous perdez 5 points de vie";
                                     }
                                 }
                                 break;
                         }
-                        if (joueurDmgSpe)
+                        if (isPlayerDamagerSpellActive)
                         {
-                            classIA.hprestants -= classJoueur.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionJoueur += " Vous contre-attaquez et il perd " + classIA.hpPerdus + " points de vie";
-                            joueurDmgSpe = false;
+                            classIA.hpCurrent -= playerClass.hpLost; //active le renvoie des damages, a bien relier dans la resolution de l'ia
+                            playerDisplayText += " Vous contre-attaquez et il perd " + classIA.hpLost + " points de vie";
+                            isPlayerDamagerSpellActive = false;
                         }
 
-                        if (iaDmgSpe)
+                        if (isIADamagerSpellActive)
                         {
-                            classJoueur.hprestants -= classIA.hpPerdus; //active le renvoie des damages, a bien relier dans la resolution de l'ia
-                            resolutionIA += " Malheureusement vous prenez une contre attaque desesperee et perdez " + classJoueur.hpPerdus + "points de vie";
-                            iaDmgSpe = false;
+                            playerClass.hpCurrent -= classIA.hpLost; //active le renvoie des damages, a bien relier dans la resolution de l'ia
+                            iaDisplayText += " Malheureusement vous prenez une contre attaque desesperee,\nvous perdez " + playerClass.hpLost + "points de vie";
+                            isIADamagerSpellActive = false;
                         }
-                        tour = "joueur";
-                        verif_hp = true;
+                        turn = "joueur";
+                        hpCheck = true;
                     }
 
 
 
                     // Verifie si un des deux joueurs n'a plus de HP
-                    if (verif_hp)
+                    if (hpCheck)
                     {
-                        if (classJoueur.hprestants <= 0 && classIA.hprestants <= 0)
+                        if (playerClass.hpCurrent <= 0 && classIA.hpCurrent <= 0)
                         {
                             winner = "  Egalite";
                             screen = "end";
-                            song_playing = false;
+                            isSongPlaying = false;
                         }
-                        else if (classJoueur.hprestants <= 0)
+                        else if (playerClass.hpCurrent <= 0)
                         {
                             winner = "Vous avez\n perdu la\n  vie...";
                             screen = "end";
-                            song_playing = false;
+                            isSongPlaying = false;
                         }
-                        else if (classIA.hprestants <= 0)
+                        else if (classIA.hpCurrent <= 0)
                         {
                             winner = "Vous avez\n   gagne !";
                             screen = "end";
-                            song_playing = false;
+                            isSongPlaying = false;
                         }
-                        verif_hp = false;
+                        hpCheck = false;
                     }
 
                 }
@@ -776,39 +756,39 @@ namespace Jeu_de_combat_avec_moteur
 
                     // Lance la musique
 
-                    if (!song_playing && active_audio)
+                    if (!isSongPlaying && isAudioActive)
                     {
-                        fight_song.Stop();
+                        songFightScreen.Stop();
                         if (winner == "Vous avez\n   gagne !")
                         {
-                            good_end_song.Play();
-                            song_playing = true;
-                            good_end_song.IsLooped = true;
+                            songGoodEndingScreen.Play();
+                            isSongPlaying = true;
+                            songGoodEndingScreen.IsLooped = true;
                         }
                         else
                         {
-                            bad_end_song.Play();
-                            song_playing = true;
-                            bad_end_song.IsLooped = true;
+                            songBadEndingScreen.Play();
+                            isSongPlaying = true;
+                            songBadEndingScreen.IsLooped = true;
                         }
                     }
 
 
 
-                    if (boutton_restart_pos.X < mousePos.X + 1 && boutton_restart_pos.X + boutton_restart_taille.X > mousePos.X && boutton_restart_pos.Y < mousePos.Y + 1 && boutton_restart_pos.Y + boutton_restart_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                    if (buttonRestartPosition.X < mousePosition.X + 1 && buttonRestartPosition.X + buttonRestartSize.X > mousePosition.X && buttonRestartPosition.Y < mousePosition.Y + 1 && buttonRestartPosition.Y + buttonRestartSize.Y > mousePosition.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        menu_click.Play();
+                        sfxMenuClick.Play();
                         if (winner == "Vous avez\n   gagne !")
                         {
-                            good_end_song.Stop();
+                            songGoodEndingScreen.Stop();
                         }
                         else
                         {
-                            bad_end_song.Stop();
+                            songBadEndingScreen.Stop();
                         }
-                        restart();
+                        Restart();
                         screen = "menu";
-                        song_playing = false;
+                        isSongPlaying = false;
                     }
                 }
             }
@@ -816,7 +796,10 @@ namespace Jeu_de_combat_avec_moteur
             base.Update(gameTime);
         }
 
-        // Debut de la fonction Draw qui se repete en boucle (c'est ici qu'est geree tout la partie graphique du jeu) 
+        /// <summary>
+        /// Debut de la fonction Draw qui se repete en boucle
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -824,501 +807,520 @@ namespace Jeu_de_combat_avec_moteur
             // Affiche les graphisme a l'ecran en fonction de quelle ecran doit etre affiche 
             if (screen == "menu")
             {
-                _spriteBatch.Begin();
-                _spriteBatch.Draw(bg_start, new System.Numerics.Vector2(0, 0), Color.White);
-                _spriteBatch.Draw(slider_barre, slider_barre_pos, Color.White);
-                _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
-                _spriteBatch.Draw(slider_button, slider_button_pos, Color.White);
-                _spriteBatch.Draw(button_play, boutton_start_pos, Color.White);
-                //_spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
-                _spriteBatch.Draw(nom_du_jeu, namePos, Color.White);
-                _spriteBatch.End();
+                spriteBatch.Begin();
+                spriteBatch.Draw(backgroundStartScreen, new System.Numerics.Vector2(0, 0), Color.White);
+                spriteBatch.Draw(sliderSlider, sliderSliderPosition, Color.White);
+                spriteBatch.Draw(sliderButton, sliderButtonPosition, Color.White);
+                spriteBatch.Draw(sliderButton, sliderButtonPosition, Color.White);
+                spriteBatch.Draw(playButton, buttonStartPosition, Color.White);
+                //spriteBatch.DrawString(endFont, "  Fishing\nSimulator\n      XII", new System.Numerics.Vector2(240, 200), Color.GreenYellow);
+                spriteBatch.Draw(gameName, namePosition, Color.White);
+                spriteBatch.End();
             }
             else if (screen == "selec")
             {
-                _spriteBatch.Begin();
-                _spriteBatch.Draw(bg_selec_perso, new System.Numerics.Vector2(0, 0), Color.White);
-                _spriteBatch.Draw(list_boutton_texture_selec[0], list_boutton_pos_selec[0], Color.White);
-                _spriteBatch.Draw(list_boutton_texture_selec[1], list_boutton_pos_selec[1], Color.White);
-                _spriteBatch.Draw(list_boutton_texture_selec[2], list_boutton_pos_selec[2], Color.White);
-                _spriteBatch.Draw(list_boutton_texture_selec[3], list_boutton_pos_selec[3], Color.White);
-                _spriteBatch.End();
+                spriteBatch.Begin();
+                spriteBatch.Draw(backgroundCharacterSelection, new System.Numerics.Vector2(0, 0), Color.White);
+                spriteBatch.Draw(listButtonTextureSelection[0], listbuttonSizeSelection[0], Color.White);
+                spriteBatch.Draw(listButtonTextureSelection[1], listbuttonSizeSelection[1], Color.White);
+                spriteBatch.Draw(listButtonTextureSelection[2], listbuttonSizeSelection[2], Color.White);
+                spriteBatch.Draw(listButtonTextureSelection[3], listbuttonSizeSelection[3], Color.White);
+                spriteBatch.End();
             }
-            else if (screen == "game" || animation_en_cour != "non")
+            else if (screen == "game" || currentAnimation != "non")
             {
 
 
-                _spriteBatch.Begin();
+                spriteBatch.Begin();
                 if (difficult == 10)
                 {
-                    _spriteBatch.Draw(bg_diff_10, new System.Numerics.Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(backgroundDiff10, new System.Numerics.Vector2(0, 0), Color.White);
                 }
                 else
                 {
-                    _spriteBatch.Draw(bg_combat, new System.Numerics.Vector2(0, 0), Color.White);
+                    spriteBatch.Draw(backgroundFight, new System.Numerics.Vector2(0, 0), Color.White);
                 }
-                _spriteBatch.End();
+                spriteBatch.End();
 
-                for (int i = 0; i < classJoueur.hprestants; i++)
+                for (int i = 0; i < playerClass.hpCurrent; i++)
                 {
-                    System.Numerics.Vector2 positionProvi1 = sprite_joueur_pos;
+                    System.Numerics.Vector2 positionProvi1 = spritePlayerPosition;
 
                     positionProvi1.X += (i * 50) + 50;
                     positionProvi1.Y -= 70;
 
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
-                    _spriteBatch.End();
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
+                    spriteBatch.End();
                 }
-                for (int i = 0; i < classIA.hprestants; i++)
+                for (int i = 0; i < classIA.hpCurrent; i++)
                 {
-                    System.Numerics.Vector2 positionProvi1 = sprite_IA_pos;
+                    System.Numerics.Vector2 positionProvi1 = spriteIAPosition;
 
                     positionProvi1.X += (i * 50) + 50;
                     positionProvi1.Y -= 70;
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
-                    _spriteBatch.End();
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
+                    spriteBatch.End();
                 }
                 // Permet de faire montée et desendre les deux personnages sur l'écran
-                if (sprite_joueur_pos.Y < 165)
+                if (spritePlayerPosition.Y < 165)
                 {
-                    move_joueur = true;
+                    isPlayerMove = true;
                 }
-                else if (sprite_joueur_pos.Y > 185)
+                else if (spritePlayerPosition.Y > 185)
                 {
-                    move_joueur = false;
+                    isPlayerMove = false;
                 }
-                if (move_joueur)
+                if (isPlayerMove)
                 {
-                    sprite_joueur_pos.Y += 1;
-                    sprite_IA_pos.Y -= 1;
+                    spritePlayerPosition.Y += 1;
+                    spriteIAPosition.Y -= 1;
                 }
                 else
                 {
-                    sprite_joueur_pos.Y -= 1;
-                    sprite_IA_pos.Y += 1;
+                    spritePlayerPosition.Y -= 1;
+                    spriteIAPosition.Y += 1;
                 }
 
 
 
-                _spriteBatch.Begin();
-                _spriteBatch.Draw(list_sprite[choixClasseJoueur], sprite_joueur_pos, Color.White);
-                _spriteBatch.Draw(list_sprite[choixClasseIA + 4], sprite_IA_pos, Color.White);
-                _spriteBatch.Draw(ui_fight, new System.Numerics.Vector2(0, 580), Color.White);
+                spriteBatch.Begin();
+                spriteBatch.Draw(mistSprites[playerClassChoice], spritePlayerPosition, Color.White);
+                spriteBatch.Draw(mistSprites[choiceClassIA + 4], spriteIAPosition, Color.White);
+                spriteBatch.Draw(fightUI, new System.Numerics.Vector2(0, 580), Color.White);
 
-                _spriteBatch.DrawString(font, resolutionJoueur, textbox, Color.Black);
-                _spriteBatch.DrawString(font, resolutionIA, textbox2, Color.Black);
+                spriteBatch.DrawString(font, playerDisplayText, textBox, Color.Black);
+                spriteBatch.DrawString(font, iaDisplayText, textBox2, Color.Black);
 
-                _spriteBatch.Draw(list_boutton_combat_texture[0], list_boutton_combat_pos[0], Color.White);
-                _spriteBatch.Draw(list_boutton_combat_texture[1], list_boutton_combat_pos[1], Color.White);
-                _spriteBatch.Draw(list_boutton_combat_texture[2 + choixClasseJoueur], list_boutton_combat_pos[2], Color.White);
-                _spriteBatch.End();
+                spriteBatch.Draw(listButtonFightTextures[0], listButtonFightPosition[0], Color.White);
+                spriteBatch.Draw(listButtonFightTextures[1], listButtonFightPosition[1], Color.White);
+                spriteBatch.Draw(listButtonFightTextures[2 + playerClassChoice], listButtonFightPosition[2], Color.White);
+                spriteBatch.End();
 
                 // Animation
-                if (anim_time == 0)
+                if (animationTime == 0)
                 {
-                    if (animation_sur == "IA")
+                    if (animationOn == "IA")
                     {
-                        animation_origine_pos = sprite_IA_pos;
-                        animation_pos = animation_origine_pos;
+                        animationOriginPosition = spriteIAPosition;
+                        animationPosition = animationOriginPosition;
                     }
-                    if (animation_sur == "joueur")
+                    if (animationOn == "joueur")
                     {
-                        animation_origine_pos = sprite_joueur_pos;
-                        animation_pos = animation_origine_pos;
+                        animationOriginPosition = spritePlayerPosition;
+                        animationPosition = animationOriginPosition;
                     }
-                    anim_frame = 1000;
+                    animationFrame = 1000;
                 }
 
 
-                if (animation_en_cour == "damage")
+                if (currentAnimation == "damage")
                 {
-                    anim_frame += 1;
-                    if (anim_frame > 17)
+                    animationFrame += 1;
+                    if (animationFrame > 17)
                     {
                         Random rand = new Random();
-                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
-                        animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
-                        anim_frame = 0;
-                        anim_time += 1;
-                        hit_sound.Play();
+                        animationPosition.X = animationOriginPosition.X + rand.Next(0, 300);
+                        animationPosition.Y = animationOriginPosition.Y + rand.Next(0, 200);
+                        animationFrame = 0;
+                        animationTime += 1;
+                        sfxHit.Play();
                     }
 
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(list_animation[anim_frame / 6], animation_pos, Color.White);
-                    _spriteBatch.End();
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(listAnimations[animationFrame / 6], animationPosition, Color.White);
+                    spriteBatch.End();
 
-                    if (anim_time == 5)
+                    if (animationTime == 5)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                 }
-                else if (animation_en_cour == "def")
+                else if (currentAnimation == "def")
                 {
-                    animation_pos.X = animation_origine_pos.X + 80;
-                    animation_pos.Y = animation_origine_pos.Y + 140;
+                    animationPosition.X = animationOriginPosition.X + 80;
+                    animationPosition.Y = animationOriginPosition.Y + 140;
 
-                    if (anim_frame < 8)
+                    if (animationFrame < 8)
                     {
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(def_effect, animation_pos, Color.White);
-                        _spriteBatch.End();
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(defenseEffect, animationPosition, Color.White);
+                        spriteBatch.End();
                     }
-                    else if (anim_frame >= 16)
+                    else if (animationFrame >= 16)
                     {
-                        anim_frame = 0;
-                        anim_time += 1;
+                        animationFrame = 0;
+                        animationTime += 1;
                     }
-                    anim_frame += 1;
+                    animationFrame += 1;
 
-                    if (anim_time == 5)
+                    if (animationTime == 5)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                 }
-                else if (animation_en_cour == "spe_damager")
+                else if (currentAnimation == "spe_damager")
                 {
-                    if (anim_time == 0) 
+                    if (animationTime == 0) 
                     {
-                        anim_time = 1;
-                        anim_frame = 1;
+                        animationTime = 1;
+                        animationFrame = 1;
                     }
-                    if (anim_time < 5)
+                    if (animationTime < 5)
                     {
-                        if (anim_frame >= 300 || anim_frame <= 0)
+                        if (animationFrame >= 300 || animationFrame <= 0)
                         {
-                            anim_time += 1;
+                            animationTime += 1;
                         }
-                        if (anim_time == 1 || anim_time == 3)
+                        if (animationTime == 1 || animationTime == 3)
                         {
-                            anim_frame += 8;
+                            animationFrame += 8;
                         }
                         else
                         {
-                            anim_frame -= 8;
+                            animationFrame -= 8;
                         }
-                        if (animation_sur == "IA")
+                        if (animationOn == "IA")
                         {
-                            _spriteBatch.Begin();
-                            _spriteBatch.Draw(eyes_joueur, new System.Numerics.Vector2(478, 200 + anim_frame), Color.White);
-                            _spriteBatch.End();
+                            spriteBatch.Begin();
+                            spriteBatch.Draw(playerEyes, new System.Numerics.Vector2(478, 200 + animationFrame), Color.White);
+                            spriteBatch.End();
                         }
                         else
                         {
-                            _spriteBatch.Begin();
-                            _spriteBatch.Draw(eyes_IA, new System.Numerics.Vector2(478, 200 + anim_frame), Color.White);
-                            _spriteBatch.End();
+                            spriteBatch.Begin();
+                            spriteBatch.Draw(iaEyes, new System.Numerics.Vector2(478, 200 + animationFrame), Color.White);
+                            spriteBatch.End();
                         }
                     }
                     else
                     {
-                        anim_frame += 1;
-                        if (anim_frame > 17 || anim_frame < 0)
+                        animationFrame += 1;
+                        if (animationFrame > 17 || animationFrame < 0)
                         {
                             Random rand = new Random();
-                            animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
-                            animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
-                            anim_frame = 0;
-                            anim_time += 1;
-                            hit_sound.Play();
+                            animationPosition.X = animationOriginPosition.X + rand.Next(0, 300);
+                            animationPosition.Y = animationOriginPosition.Y + rand.Next(0, 200);
+                            animationFrame = 0;
+                            animationTime += 1;
+                            sfxHit.Play();
                         }
 
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(list_animation[anim_frame / 6], animation_pos, Color.White);
-                        _spriteBatch.End();
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(listAnimations[animationFrame / 6], animationPosition, Color.White);
+                        spriteBatch.End();
 
                     }
-                    if (anim_time == 11)
+                    if (animationTime == 11)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                 }
-                else if (animation_en_cour == "spe_tank")
+                else if (currentAnimation == "spe_tank")
                 {
-                    if (anim_frame == 1000)
+                    if (animationFrame == 1000)
                     {
-                        anim_frame = 0;
-                        anim_time = 1;
+                        animationFrame = 0;
+                        animationTime = 1;
                     }
-                    if (anim_frame == 50)
+                    if (animationFrame == 50)
                     {
-                        tank_spe_sound.Play();
+                        sfxTankSpell.Play();
                     }
 
 
-                    if (anim_frame < 50)
+                    if (animationFrame < 50)
                     {
-                        anim_frame += 1;
-                        if (animation_sur == "IA")
+                        animationFrame += 1;
+                        if (animationOn == "IA")
                         {
-                            sprite_joueur_pos.X += 10;
+                            spritePlayerPosition.X += 10;
                         }
                         else
                         {
-                            sprite_IA_pos.X -= 10;
+                            spriteIAPosition.X -= 10;
                         }
-                    }else if (anim_frame >= 50 && anim_frame <= 80)
+                    }else if (animationFrame >= 50 && animationFrame <= 80)
                     {
-                        if(anim_frame % 10 == 0)
+                        if(animationFrame % 10 == 0)
                         {
-                            _spriteBatch.Begin();
-                            _spriteBatch.Draw(flash, new System.Numerics.Vector2(0,0), Color.White);
-                            _spriteBatch.End();
+                            spriteBatch.Begin();
+                            spriteBatch.Draw(flash, new System.Numerics.Vector2(0,0), Color.White);
+                            spriteBatch.End();
                         }
-                        anim_frame += 1;
+                        animationFrame += 1;
                     }
-                    else if (anim_frame < 130)
+                    else if (animationFrame < 130)
                     {
-                        anim_frame += 1;
-                        if (animation_sur == "IA")
+                        animationFrame += 1;
+                        if (animationOn == "IA")
                         {
-                            sprite_joueur_pos.X -= 10;
+                            spritePlayerPosition.X -= 10;
                         }
                         else
                         {
-                            sprite_IA_pos.X += 10;
+                            spriteIAPosition.X += 10;
                         }
                     }
                     else
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                 }
-                else if (animation_en_cour == "spe_ranger_1")
+                else if (currentAnimation == "spe_ranger_1")
                 {
-                    anim_frame += 1;
-                    animation_pos.Y -= 10;
-                    if (anim_frame > 30)
+                    animationFrame += 1;
+                    animationPosition.Y -= 10;
+                    if (animationFrame > 30)
                     {
                         Random rand = new Random();
-                        animation_pos.X = animation_origine_pos.X + rand.Next(-50, 350);
-                        animation_pos.Y = animation_origine_pos.Y + rand.Next(200, 400);
-                        anim_frame = 0;
-                        anim_time += 1;
+                        animationPosition.X = animationOriginPosition.X + rand.Next(-50, 350);
+                        animationPosition.Y = animationOriginPosition.Y + rand.Next(200, 400);
+                        animationFrame = 0;
+                        animationTime += 1;
                     }
-                    if (anim_time == 5)
+                    if (animationTime == 5)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                     else
                     {
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(arrow, animation_pos, Color.White);
-                        _spriteBatch.End();
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(arrow, animationPosition, Color.White);
+                        spriteBatch.End();
                     }
 
                 }
-                else if (animation_en_cour == "spe_ranger_2")
+                else if (currentAnimation == "spe_ranger_2")
                 {
-                    anim_frame += 1;
-                    if (anim_frame > 11)
+                    animationFrame += 1;
+                    if (animationFrame > 11)
                     {
                         Random rand = new Random();
-                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
-                        animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
-                        anim_frame = 0;
-                        anim_time += 1;
-                        hit_sound.Play();
+                        animationPosition.X = animationOriginPosition.X + rand.Next(0, 300);
+                        animationPosition.Y = animationOriginPosition.Y + rand.Next(0, 200);
+                        animationFrame = 0;
+                        animationTime += 1;
+                        sfxHit.Play();
                     }
 
-                    _spriteBatch.Begin();
-                    _spriteBatch.Draw(list_animation[anim_frame / 4], animation_pos, Color.White);
-                    _spriteBatch.End();
+                    spriteBatch.Begin();
+                    spriteBatch.Draw(listAnimations[animationFrame / 4], animationPosition, Color.White);
+                    spriteBatch.End();
 
-                    if (anim_time == 10)
+                    if (animationTime == 10)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
 
                 }
-                else if (animation_en_cour == "spe_healer")
+                else if (currentAnimation == "spe_healer")
                 {
-                    anim_frame += 1;
-                    animation_pos.Y -= 3;
+                    animationFrame += 1;
+                    animationPosition.Y -= 3;
 
 
-                    if (anim_frame > 27)
+                    if (animationFrame > 27)
                     {
                         Random rand = new Random();
-                        animation_pos.X = animation_origine_pos.X + rand.Next(0, 300);
-                        animation_pos.Y = animation_origine_pos.Y + rand.Next(50, 400);
-                        anim_frame = 0;
-                        anim_time += 1;
+                        animationPosition.X = animationOriginPosition.X + rand.Next(0, 300);
+                        animationPosition.Y = animationOriginPosition.Y + rand.Next(50, 400);
+                        animationFrame = 0;
+                        animationTime += 1;
                     }
 
-                    if (anim_time == 4)
+                    if (animationTime == 4)
                     {
-                        animation_en_cour = "non";
-                        anim_time = 0;
-                        anim_frame = 0;
+                        currentAnimation = "non";
+                        animationTime = 0;
+                        animationFrame = 0;
                     }
                     else
                     {
-                        _spriteBatch.Begin();
-                        _spriteBatch.Draw(healthTexture, animation_pos, Color.White);
-                        _spriteBatch.End();
+                        spriteBatch.Begin();
+                        spriteBatch.Draw(healthTexture, animationPosition, Color.White);
+                        spriteBatch.End();
                     }
                 }
 
             }
             else if (screen == "end")
             {
-                _spriteBatch.Begin();
-                _spriteBatch.Draw(bg_ecrand_de_fin, new System.Numerics.Vector2(0, 0), Color.White);
-                _spriteBatch.DrawString(endFont, winner, endTextPos, Color.Black);
-                _spriteBatch.Draw(button_restart, boutton_restart_pos, Color.White);
-                _spriteBatch.End();
+                spriteBatch.Begin();
+                spriteBatch.Draw(backgroundEndScreen, new System.Numerics.Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(endFont, winner, endTextPosition, Color.Black);
+                spriteBatch.Draw(restartButton, buttonRestartPosition, Color.White);
+                spriteBatch.End();
             }
 
             base.Draw(gameTime);
         }
-        public static void ChoixIA() //Cette fonction permet de choisir la Classe de l'IA
+
+        /// <summary>
+        /// Cette fonction permet de choisir la classe de l'IA
+        /// </summary>
+        public static void IAChoice()
         {
             Random rand = new Random();
-            choixClasseIA = rand.Next(0, 4);
-            switch (choixClasseIA)
+            choiceClassIA = rand.Next(0, 4);
+            switch (choiceClassIA)
             {
                 case 0:
-                    classIA = new Entitees.Damager();
-                    nomClasseIA = "Damager";
+                    classIA = new Entities.Damager();
+                    nameClassIA = "Damager";
                     break;
 
                 case 1:
-                    nomClasseIA = "Healer";
-                    classIA = new Entitees.Healer();
+                    nameClassIA = "Healer";
+                    classIA = new Entities.Healer();
                     break;
 
                 case 2:
-                    nomClasseIA = "Tank";
-                    classIA = new Entitees.Tank();
+                    nameClassIA = "Tank";
+                    classIA = new Entities.Tank();
                     break;
                 case 3:
-                    nomClasseIA = "Ranger";
-                    classIA = new Entitees.Ranger();
+                    nameClassIA = "Ranger";
+                    classIA = new Entities.Ranger();
                     break;
             }
-            classIA.hprestants = classIA.hp;
+            classIA.hpCurrent = classIA.hp;
         }
 
-        public static void restart()
+        /// <summary>
+        /// Cette fonction permet de redemarrer le jeu
+        /// </summary>
+        public static void Restart()
         {
-            classJoueur = new Entitees();
-            classIA = new Entitees();
-            tour = "joueur";
+            playerClass = new Entities();
+            classIA = new Entities();
+            turn = "joueur";
             difficult = 5;
-            choixOpti = 0;
-            choixJoueur = 10;
-            choixClasseJoueur = 10;
-            choixIA = 0;
-            choixClasseIA = 10;
-            nomClasseJoueur = " ";
-            nomClasseIA = " ";
-            nManche = 0;
-            combatTermine = false;
-            joueurDef = false;
-            iADef = false;
-            joueurTankSpe = false;
-            joueurRangerSpe = false;
-            joueurRangerCharge = 1;
-            iaRangerCharge = 1;
-            iaTankSpe = false;
-            iaRangerSpe = false;
-            joueurDmgSpe = false;
-            iaDmgSpe = false;
-            resolutionJoueur = " ";
-            resolutionIA = " ";
+            bestChoice = 0;
+            playerChoice = 10;
+            playerClassChoice = 10;
+            choiceIA = 0;
+            choiceClassIA = 10;
+            playerClassName = " ";
+            nameClassIA = " ";
+            turnNumber = 0;
+            isFightOver = false;
+            isPlayerDefenseStance = false;
+            isIADefenseStance = false;
+            isPlayerTankSpellActive = false;
+            isPlayerRangerSpellActive = false;
+            playerRangerCharge = 1;
+            rangerChargeIA = 1;
+            isIATankSpellActive = false;
+            isIARangerSpellActive = false;
+            isPlayerDamagerSpellActive = false;
+            isIADamagerSpellActive = false;
+            playerDisplayText = " ";
+            iaDisplayText = " ";
             winner = "  ";
-            active_audio = true;
-            control_slider = false;
-            verif_hp = false;
-            anim_frame = 0;
-            animation_en_cour = "non";
-            anim_time = 0;
-            animation_sur = "  ";
+            isAudioActive = true;
+            controlSlider = false;
+            hpCheck = false;
+            animationFrame = 0;
+            currentAnimation = "non";
+            animationTime = 0;
+            animationOn = "  ";
         }
-
     }
 
-
-    // Class
-    public class Entitees
+    /// <summary>
+    /// Cette classe permet de creer les Entities du jeu
+    /// </summary>
+    public class Entities
     {
-        public int hprestants;
+        public int hpCurrent;
         public int hp;
-        public int hpPerdus = 0;
-        public int att = 1;
-        public string descSpell = " ";
-        public virtual void speAtt()
+        public int hpLost = 0;
+        public int attackPower = 1;
+        public string spellDescriptions = " ";
+        public virtual void SpecialAttack()
         { }
 
-        public class Damager : Entitees
+        /// <summary>
+        /// Ce constructeur permet de creer la classe Damager
+        /// </summary>
+        public class Damager : Entities
         {
-            public override void speAtt()
+            public override void SpecialAttack()
             {
-                Game1.joueurDmgSpe = true;
+                Game1.isPlayerDamagerSpellActive = true;
             }
             public Damager()
             {
                 hp = 3;
-                att = 2;
-                descSpell = "Repliquer les degats subis ce tour (ne vous protege pas des degats)";
+                attackPower = 2;
+                spellDescriptions = "Repliquer les degats subis ce turn (ne vous protege pas des degats)";
             }
         }
 
-        public class Healer : Entitees
+        /// <summary>
+        /// ce constructeur permet de creer la classe Healer
+        /// </summary>
+        public class Healer : Entities
         {
-            public override void speAtt()
+            public override void SpecialAttack()
             {
                 //les conditions verifient et limitent le gain de hp aux hpmax
-                if (hprestants + 2 <= hp)
-                { hprestants += 2; }
-                else if (hprestants + 1 == hp)
-                { hprestants++; }
+                if (hpCurrent + 2 <= hp)
+                { hpCurrent += 2; }
+                else if (hpCurrent + 1 == hp)
+                { hpCurrent++; }
                 else { Console.WriteLine(" Les points de vie sont au maximum, le sort n'a pas eu d'effet"); }
             }
             public Healer()
             {
                 hp = 4;
-                descSpell = "Regagner 2 points de vie";
+                spellDescriptions = "Regagner 2 points de vie";
             }
         }
-        public class Tank : Entitees
+
+        /// <summary>
+        /// ce constructeur permet de creer la classe Tank
+        /// </summary>
+        public class Tank : Entities
         {
-            public override void speAtt()
+            public override void SpecialAttack()
             {
-                hprestants--;
-                att++;
+                hpCurrent--;
+                attackPower++;
             }
             public Tank()
             {
                 hp = 5;
-                descSpell = "Sacrifier 1 point de vie pour gagner 1 point de degats pour ce tour puis attaquer";
+                spellDescriptions = "Sacrifier 1 point de vie pour gagner 1 point de degats pour ce turn puis attackPoweraquer";
             }
         }
-        public class Ranger : Entitees
+
+        /// <summary>
+        /// ce constructeur permet de creer la classe Ranger
+        /// </summary>
+        public class Ranger : Entities
         {
-            public override void speAtt()
-            {
-                ;
-            }
+            public override void SpecialAttack()
+            {}
             public Ranger()
             {
                 hp = 3;
-                att = 2;
-                descSpell = "2 tours pour charger une attaque qui inflige 5 damages";
+                attackPower = 2;
+                spellDescriptions = "2 turns pour charger une attackPoweraque qui inflige 5 damages";
             }
         }
     }
