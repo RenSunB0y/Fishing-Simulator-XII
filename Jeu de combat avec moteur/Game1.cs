@@ -58,7 +58,6 @@ namespace Jeu_de_combat_avec_moteur
         public static string animation_sur = "  ";
         public static bool move_joueur = true;
 
-
         bool song_playing = false;
 
 
@@ -734,16 +733,22 @@ namespace Jeu_de_combat_avec_moteur
                         {
                             winner = "  Egalite";
                             screen = "end";
+                            fight_song.Stop();
+                            song_playing = false;
                         }
                         else if (classJoueur.hprestants <= 0)
                         {
                             winner = "Vous avez\n perdu la\n  vie...";
                             screen = "end";
+                            fight_song.Stop();
+                            song_playing = false;
                         }
                         else if (classIA.hprestants <= 0)
                         {
                             winner = "Vous avez\n   gagne !";
                             screen = "end";
+                            fight_song.Stop();
+                            song_playing = false;
                         }
                         verif_hp = false;
                     }
@@ -753,10 +758,23 @@ namespace Jeu_de_combat_avec_moteur
                 // Code a executer si l'on se trouve dans l'ecran de fin
                 else if (screen == "end")
                 {
+
+                    // Lance la musique
+                    if (!song_playing && active_audio)
+                    {
+                        start_song.Play();
+                        song_playing = true;
+                        start_song.IsLooped = true;
+                    }
+
+
+
                     if (boutton_restart_pos.X < mousePos.X + 1 && boutton_restart_pos.X + boutton_restart_taille.X > mousePos.X && boutton_restart_pos.Y < mousePos.Y + 1 && boutton_restart_pos.Y + boutton_restart_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
                     {
                         restart();
                         screen = "menu";
+                        start_song.Stop();
+                        song_playing = false;
                     }
                 }
             }
