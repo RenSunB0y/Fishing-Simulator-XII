@@ -48,7 +48,7 @@ namespace Jeu_de_combat_avec_moteur
         public static string resolutionJoueur = " ";
         public static string resolutionIA = " ";
         public static string winner = "  ";
-        public static bool active_audio = true;
+        public static bool active_audio = false;
         public static bool control_slider = false;
         public static bool verif_hp = false;
 
@@ -130,7 +130,7 @@ namespace Jeu_de_combat_avec_moteur
 
 
 
-        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(270, 108);
+        System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(258, 96);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
