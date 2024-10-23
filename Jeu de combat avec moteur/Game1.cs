@@ -116,6 +116,8 @@ namespace Jeu_de_combat_avec_moteur
         SoundEffectInstance bad_end_song;
 
         SoundEffectInstance menu_click;
+        SoundEffectInstance hit_sound;
+        SoundEffectInstance tank_spe_sound;
 
         List<Texture2D> list_boutton_texture_selec;
         List<System.Numerics.Vector2> list_boutton_pos_selec;
@@ -247,6 +249,8 @@ namespace Jeu_de_combat_avec_moteur
                 bad_end_song = Content.Load<SoundEffect>("bad_end").CreateInstance();
 
                 menu_click = Content.Load<SoundEffect>("menu click").CreateInstance();
+                hit_sound = Content.Load<SoundEffect>("hit_sound").CreateInstance();
+                tank_spe_sound = Content.Load<SoundEffect>("tank_spe_sound").CreateInstance();
 
                 start_song.Volume = 0.5f;
                 selection_song.Volume = 0.5f;
@@ -384,7 +388,6 @@ namespace Jeu_de_combat_avec_moteur
                         song_playing = false;
                         // Fait choisir une classe aleatoirement par l'IA
                         ChoixIA();
-                        menu_click.Play();
                     }
 
                 }
@@ -514,7 +517,6 @@ namespace Jeu_de_combat_avec_moteur
                                 nManche++;
                                 resolutionJoueur = " ";
                                 resolutionIA = " ";
-                                menu_click.Play();
                             }
                             compte++;
                         }
@@ -749,21 +751,18 @@ namespace Jeu_de_combat_avec_moteur
                         {
                             winner = "  Egalite";
                             screen = "end";
-                            fight_song.Stop();
                             song_playing = false;
                         }
                         else if (classJoueur.hprestants <= 0)
                         {
                             winner = "Vous avez\n perdu la\n  vie...";
                             screen = "end";
-                            fight_song.Stop();
                             song_playing = false;
                         }
                         else if (classIA.hprestants <= 0)
                         {
                             winner = "Vous avez\n   gagne !";
                             screen = "end";
-                            fight_song.Stop();
                             song_playing = false;
                         }
                         verif_hp = false;
@@ -779,6 +778,7 @@ namespace Jeu_de_combat_avec_moteur
 
                     if (!song_playing && active_audio)
                     {
+                        fight_song.Stop();
                         if (winner == "Vous avez\n   gagne !")
                         {
                             good_end_song.Play();
@@ -942,6 +942,7 @@ namespace Jeu_de_combat_avec_moteur
                         animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
                         anim_frame = 0;
                         anim_time += 1;
+                        hit_sound.Play();
                     }
 
                     _spriteBatch.Begin();
@@ -1024,6 +1025,7 @@ namespace Jeu_de_combat_avec_moteur
                             animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
                             anim_frame = 0;
                             anim_time += 1;
+                            hit_sound.Play();
                         }
 
                         _spriteBatch.Begin();
@@ -1045,6 +1047,12 @@ namespace Jeu_de_combat_avec_moteur
                         anim_frame = 0;
                         anim_time = 1;
                     }
+                    if (anim_frame == 50)
+                    {
+                        tank_spe_sound.Play();
+                    }
+
+
                     if (anim_frame < 50)
                     {
                         anim_frame += 1;
@@ -1121,6 +1129,7 @@ namespace Jeu_de_combat_avec_moteur
                         animation_pos.Y = animation_origine_pos.Y + rand.Next(0, 200);
                         anim_frame = 0;
                         anim_time += 1;
+                        hit_sound.Play();
                     }
 
                     _spriteBatch.Begin();

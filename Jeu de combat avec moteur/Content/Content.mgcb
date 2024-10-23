@@ -339,6 +339,12 @@
 /processorParam:TextureFormat=Color
 /build:healer gauche.png
 
+#begin hit_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:hit_sound.wav
+
 #begin menu click.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -470,6 +476,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:tank gauche.png
+
+#begin tank_spe_sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:tank_spe_sound.wav
 
 #begin ui fight.png
 /importer:TextureImporter
