@@ -48,7 +48,7 @@ namespace Jeu_de_combat_avec_moteur
         public static string resolutionJoueur = " ";
         public static string resolutionIA = " ";
         public static string winner = "  ";
-        public static bool active_audio = false;
+        public static bool active_audio = true;
         public static bool control_slider = false;
         public static bool verif_hp = false;
 
@@ -56,12 +56,14 @@ namespace Jeu_de_combat_avec_moteur
         public static string animation_en_cour = "non";
         public static int anim_time = 0;
         public static string animation_sur = "  ";
+        public static bool move_joueur = true;
 
 
         bool song_playing = false;
 
 
         Texture2D button_play;
+        Texture2D button_restart;
         Texture2D classe1Texture;
         Texture2D classe2Texture;
         Texture2D classe3Texture;
@@ -131,12 +133,14 @@ namespace Jeu_de_combat_avec_moteur
 
 
         System.Numerics.Vector2 boutton_start_taille = new System.Numerics.Vector2(258, 96);
+        System.Numerics.Vector2 boutton_restart_taille = new System.Numerics.Vector2(600, 96);
         System.Numerics.Vector2 boutton_taille = new System.Numerics.Vector2(250, 250);
         System.Numerics.Vector2 boutton_action_taille = new System.Numerics.Vector2(100, 100);
         System.Numerics.Vector2 slider_button_taille = new System.Numerics.Vector2(117, 117);
         System.Numerics.Vector2 slider_barre_taille = new System.Numerics.Vector2(850, 48);
 
         System.Numerics.Vector2 boutton_start_pos = new System.Numerics.Vector2(405, 50);
+        System.Numerics.Vector2 boutton_restart_pos = new System.Numerics.Vector2(240, 450);
         System.Numerics.Vector2 boutton1_pos = new System.Numerics.Vector2(40, 150);
         System.Numerics.Vector2 boutton2_pos = new System.Numerics.Vector2(290, 150);
         System.Numerics.Vector2 boutton3_pos = new System.Numerics.Vector2(540, 150);
@@ -148,8 +152,8 @@ namespace Jeu_de_combat_avec_moteur
         System.Numerics.Vector2 slider_button_pos = new System.Numerics.Vector2(150, 515);
         System.Numerics.Vector2 slider_barre_pos = new System.Numerics.Vector2(150, 520);
 
-        System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50, 170);
-        System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720, 170);
+        System.Numerics.Vector2 sprite_joueur_pos = new System.Numerics.Vector2(50, 175);
+        System.Numerics.Vector2 sprite_IA_pos = new System.Numerics.Vector2(720, 175);
 
         System.Numerics.Vector2 mousePos = new System.Numerics.Vector2(0, 0);
 
@@ -184,6 +188,7 @@ namespace Jeu_de_combat_avec_moteur
 
             // Charge tout les assets qui vont etre utilise
             button_play = Content.Load<Texture2D>("play");
+            button_restart = Content.Load<Texture2D>("restart");
             classe1Texture = Content.Load<Texture2D>("bouton Choix Damager");
             classe2Texture = Content.Load<Texture2D>("bouton Choix Healer");
             classe3Texture = Content.Load<Texture2D>("bouton Choix Tank");
@@ -748,8 +753,11 @@ namespace Jeu_de_combat_avec_moteur
                 // Code a executer si l'on se trouve dans l'ecran de fin
                 else if (screen == "end")
                 {
-                    restart();
-                    screen = "menu";
+                    if (boutton_restart_pos.X < mousePos.X + 1 && boutton_restart_pos.X + boutton_restart_taille.X > mousePos.X && boutton_restart_pos.Y < mousePos.Y + 1 && boutton_restart_pos.Y + boutton_restart_taille.Y > mousePos.Y && mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        restart();
+                        screen = "menu";
+                    }
                 }
             }
 
@@ -797,7 +805,6 @@ namespace Jeu_de_combat_avec_moteur
                 {
                     _spriteBatch.Draw(bg_combat, new System.Numerics.Vector2(0, 0), Color.White);
                 }
-
                 _spriteBatch.End();
 
                 for (int i = 0; i < classJoueur.hprestants; i++)
@@ -821,6 +828,27 @@ namespace Jeu_de_combat_avec_moteur
                     _spriteBatch.Draw(healthTexture, positionProvi1, Color.White);
                     _spriteBatch.End();
                 }
+                // Permet de faire montée et desendre les deux personnages sur l'écran
+                if (sprite_joueur_pos.Y < 165)
+                {
+                    move_joueur = true;
+                }
+                else if (sprite_joueur_pos.Y > 185)
+                {
+                    move_joueur = false;
+                }
+                if (move_joueur)
+                {
+                    sprite_joueur_pos.Y += 1;
+                    sprite_IA_pos.Y -= 1;
+                }
+                else
+                {
+                    sprite_joueur_pos.Y -= 1;
+                    sprite_IA_pos.Y += 1;
+                }
+
+
 
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(list_sprite[choixClasseJoueur], sprite_joueur_pos, Color.White);
@@ -1090,6 +1118,7 @@ namespace Jeu_de_combat_avec_moteur
                 _spriteBatch.Begin();
                 _spriteBatch.Draw(bg_ecrand_de_fin, new System.Numerics.Vector2(0, 0), Color.White);
                 _spriteBatch.DrawString(endFont, winner, endTextPos, Color.Black);
+                _spriteBatch.Draw(button_restart, boutton_restart_pos, Color.White);
                 _spriteBatch.End();
             }
 
