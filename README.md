@@ -3,7 +3,7 @@ FISHING SIMULATOR XII
 
 Description
 -----------
-"Fishing Simulator XII" est un jeu de pêche développé en C# utilisant le framework MonoGame. Les joueurs peuvent choisir parmi différentes classes de personnages et combattre contre une IA dans un système de combat tour par tour.
+"Fishing Simulator XII" est un jeu de combat développé en C# utilisant le framework MonoGame. Les joueurs peuvent choisir parmi différentes classes de personnages et combattre contre une IA dans un système de combat tour par tour.
 
 Fonctionnalités
 ---------------
